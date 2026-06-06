@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";  
 import "./css/dashboard.css";
 import logo from "../../asset/logo.png";
 
@@ -18,6 +19,7 @@ function Dashboard() {
 
   return (
     <div className="dashboard">
+
       {/* Navbar */}
       <nav className="navbar">
         <div className="logo-section">
@@ -26,11 +28,25 @@ function Dashboard() {
         </div>
 
         <ul className="nav-links">
-          <li>Home</li>
-          <li>Hotels</li>
-          <li>Destinations</li>
-          <li>About</li>
-          <li>Contact</li>
+          <li onClick={() => document.getElementById("home")?.scrollIntoView({ behavior: "smooth" })}>
+            Home
+          </li>
+
+          <li onClick={() => document.getElementById("rooms")?.scrollIntoView({ behavior: "smooth" })}>
+            Rooms
+          </li>
+
+          <li onClick={() => document.getElementById("facilities")?.scrollIntoView({ behavior: "smooth" })}>
+            Facilities
+          </li>
+
+          <li onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}>
+            About
+          </li>
+
+          <li onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}>
+            Contact
+          </li>
         </ul>
 
         <div className="auth-buttons">
@@ -40,169 +56,113 @@ function Dashboard() {
       </nav>
 
       {/* Hero */}
-      <section className="hero">
+      <section className="hero" id="home">
         <div className="hero-overlay">
-          <h1>Find Your Perfect Stay</h1>
+          <h1>Angkor Resort</h1>
+          <p>Luxury stay experience in the heart of Siem Reap</p>
 
-          <p>
-            Search thousands of hotels, resorts, villas, and apartments around
-            the world.
-          </p>
-
-          <div className="search-box">
-            <input type="text" placeholder="Destination" />
-            <input type="date" />
-            <input type="date" />
-            <button>Search</button>
-          </div>
+          <button className="cta-button" onClick={handleBooking}>
+            Book Your Stay
+          </button>
         </div>
       </section>
 
-      {/* Destinations */}
-      <section className="destinations">
-        <h2>Popular Destinations</h2>
-
-        <div className="destination-grid">
-          <div className="destination-card">
-            <img
-              src="https://images.unsplash.com/photo-1528127269322-539801943592"
-              alt=""
-            />
-            <h3>Siem Reap</h3>
-          </div>
-
-          <div className="destination-card">
-            <img
-              src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e"
-              alt=""
-            />
-            <h3>Sihanoukville</h3>
-          </div>
-
-          <div className="destination-card">
-            <img
-              src="https://images.unsplash.com/photo-1506744038136-46273834b3fb"
-              alt=""
-            />
-            <h3>Mondulkiri</h3>
-          </div>
-
-          <div className="destination-card">
-            <img
-              src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c"
-              alt=""
-            />
-            <h3>Phnom Penh</h3>
-          </div>
-        </div>
+      {/* About */}
+      <section className="about">
+        <h2>Welcome to Angkor Resort</h2>
+        <p>
+          Experience comfort, luxury, and Khmer hospitality in our exclusive resort
+          located in Siem Reap, just minutes away from Angkor Wat.
+        </p>
       </section>
 
-      {/* Hotels */}
-      <section className="featured">
-        <h2>Featured Hotels</h2>
+      {/* Rooms */}
+      <section className="rooms" id="rooms">
+        <h2>Our Rooms</h2>
 
-        <div className="hotel-grid">
-          <div className="hotel-card">
+        <div className="room-grid">
+
+          {/* ROOM 1 */}
+          <div className="room-card">
             <img
-              src="https://images.unsplash.com/photo-1566073771259-6a8506099945"
-              alt=""
+              src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85"
+              alt="Standard Room"
             />
 
-            <div className="hotel-info">
-              <h3>Luxury Resort</h3>
-              <p>Siem Reap</p>
-              <p>⭐⭐⭐⭐⭐</p>
+            <div className="room-info">
+              <h3>Standard Room</h3>
+              <p>Comfortable stay for couples or solo travelers</p>
+              <h4>$80 / Night</h4>
+
+              <div className="room-actions">
+                <button className="view-btn">View Details</button>
+                <button onClick={handleBooking}>Book Now</button>
+              </div>
+            </div>
+          </div>
+
+          {/* ROOM 2 */}
+          <div className="room-card">
+            <img
+              src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85"
+              alt="Deluxe Room"
+            />
+
+            <div className="room-info">
+              <h3>Deluxe Room</h3>
+              <p>Spacious room with garden view</p>
               <h4>$120 / Night</h4>
 
-              <button onClick={handleBooking}>Book Now</button>
+              <div className="room-actions">
+                <button className="view-btn">View Details</button>
+                <button onClick={handleBooking}>Book Now</button>
+              </div>
             </div>
           </div>
 
-          <div className="hotel-card">
+          {/* ROOM 3 */}
+          <div className="room-card">
             <img
-              src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa"
-              alt=""
+              src="https://images.unsplash.com/photo-1560448075-bb485b067938"
+              alt="Suite Room"
             />
 
-            <div className="hotel-info">
-              <h3>Beach Paradise</h3>
-              <p>Sihanoukville</p>
-              <p>⭐⭐⭐⭐⭐</p>
+            <div className="room-info">
+              <h3>Suite</h3>
+              <p>Luxury suite with premium facilities</p>
               <h4>$180 / Night</h4>
 
-              <button onClick={handleBooking}>Book Now</button>
+              <div className="room-actions">
+                <button className="view-btn">View Details</button>
+                <button onClick={handleBooking}>Book Now</button>
+              </div>
             </div>
           </div>
 
-          <div className="hotel-card">
-            <img
-              src="https://images.unsplash.com/photo-1445019980597-93fa8acb246c"
-              alt=""
-            />
-
-            <div className="hotel-info">
-              <h3>Mountain View</h3>
-              <p>Mondulkiri</p>
-              <p>⭐⭐⭐⭐</p>
-              <h4>$90 / Night</h4>
-
-              <button onClick={handleBooking}>Book Now</button>
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* Offer */}
-      <section className="offer">
-        <div className="offer-box">
-          <h2>Special Summer Offer</h2>
-          <p>Get up to 30% OFF on selected luxury hotels.</p>
-          <button>Explore Deals</button>
-        </div>
-      </section>
+      {/* Facilities */}
+      <section className="facilities" id="facilities">
+        <h2>Facilities</h2>
 
-      {/* Reviews */}
-      <section className="reviews">
-        <h2>What Our Guests Say</h2>
-
-        <div className="review-grid">
-          <div className="review-card">
-            <p>
-              Amazing experience. Easy booking process and great hotels.
-            </p>
-            <h4>John Doe</h4>
-          </div>
-
-          <div className="review-card">
-            <p>
-              Best hotel booking website I have used. Highly recommended.
-            </p>
-            <h4>Sarah Smith</h4>
-          </div>
-
-          <div className="review-card">
-            <p>
-              Beautiful resorts and excellent customer support.
-            </p>
-            <h4>Michael Lee</h4>
-          </div>
-        </div>
+        <ul>
+          <li>Swimming Pool</li>
+          <li>Restaurant & Bar</li>
+          <li>Spa & Massage</li>
+          <li>Free WiFi</li>
+          <li>Airport Pickup</li>
+        </ul>
       </section>
 
       {/* Footer */}
       <footer className="footer">
-        <h3>StayBook</h3>
-        <p>Find your perfect stay anywhere in the world.</p>
+        <h3>Angkor Resort</h3>
+        <p>Luxury stay in Siem Reap, Cambodia</p>
 
-        <div className="footer-links">
-          <span>About</span>
-          <span>Contact</span>
-          <span>Privacy Policy</span>
-          <span>Terms</span>
-        </div>
-
-        <p>© 2025 StayBook. All Rights Reserved.</p>
+        <p>© 2026 Angkor Resort. All Rights Reserved.</p>
       </footer>
+
     </div>
   );
 }
