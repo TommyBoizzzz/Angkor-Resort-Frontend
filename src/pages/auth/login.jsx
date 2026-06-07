@@ -19,13 +19,44 @@ function Login() {
     try {
       const result = await loginUser({ email, password });
 
-      if (result.success) {
-        localStorage.setItem("user", JSON.stringify(result));
-        navigate("/dashboard");   // ✅ SUCCESS GO HERE
+      console.log("LOGIN RESPONSE:", result);
+
+      // ✅ FIX: handle different backend structures safely
+      const response = result?.data || result;
+
+      if (response?.success) {
+        const user = response.user;
+
+        if (!user) {
+          setError("Invalid user data from server");
+          return;
+        }
+
+        // ✅ store only needed data (better security)
+        const userData = {
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          role: user.role,
+          phoneNumber: user.phoneNumber,
+          dateOfBirth: user.dateOfBirth
+        };
+
+        localStorage.setItem("user", JSON.stringify(userData));
+
+        // ✅ redirect based on role
+        if (user.role === "admin") {
+          navigate("/admin");
+        } else {
+          navigate("/");
+        }
+
       } else {
-        setError(result.message);
+        setError(response?.message || "Login failed");
       }
+
     } catch (err) {
+      console.error(err);
       setError("Server error. Please try again.");
     } finally {
       setLoading(false);
@@ -49,6 +80,7 @@ function Login() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="input"
+            required
           />
 
           <input
@@ -57,21 +89,17 @@ function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="input"
+            required
           />
 
-          <button
-            type="submit"
-            className="button"
-            disabled={loading}
-          >
+          <button type="submit" className="button" disabled={loading}>
             {loading ? "Logging in..." : "Login"}
           </button>
 
         </form>
 
         <p className="bottom-text">
-          Don't have an account?{" "}
-          <Link to="/register">Register</Link>
+          Don't have an account? <Link to="/register">Register</Link>
         </p>
 
       </div>

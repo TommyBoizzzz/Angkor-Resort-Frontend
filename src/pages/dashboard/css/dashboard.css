@@ -1,6 +1,6 @@
-/* =======================
-   GLOBAL
-======================= */
+/* =========================
+GLOBAL RESET
+========================= */
 * {
   margin: 0;
   padding: 0;
@@ -10,20 +10,19 @@
 
 body {
   font-family: "Poppins", sans-serif;
-  background: #f5f7fb;
+  background: #f4f6fb;
   color: #333;
 }
 
-/* =======================
-   NAVBAR
-======================= */
-
+/* =========================
+NAVBAR
+========================= */
 .navbar {
   position: fixed;
   top: 0;
   width: 100%;
-  padding: 18px 8%;
-  background: rgba(0, 0, 0, 0.7);
+  padding: 16px 8%;
+  background: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(12px);
   display: flex;
   justify-content: space-between;
@@ -44,8 +43,8 @@ body {
 }
 
 .logo-section img {
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #ff7a00;
@@ -53,7 +52,7 @@ body {
 
 .logo-section span {
   color: white;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
 }
 
@@ -61,373 +60,15 @@ body {
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 28px;
-}
-
-.nav-links li {
-  color: white;
-  cursor: pointer;
-  position: relative;
-  transition: 0.3s;
-  font-weight: 500;
-}
-
-.nav-links li::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -5px;
-  width: 0%;
-  height: 2px;
-  background: #ff7a00;
-  transition: 0.3s;
-}
-
-.nav-links li:hover {
-  color: #ff7a00;
-}
-
-.nav-links li:hover::after {
-  width: 100%;
-}
-
-/* AUTH BUTTONS */
-.auth-buttons {
-  display: flex;
-  gap: 10px;
-}
-
-.auth-buttons button {
-  border: none;
-  padding: 10px 18px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: 0.3s;
-}
-
-.auth-buttons button:first-child {
-  background: white;
-  color: #333;
-}
-
-.auth-buttons button:last-child {
-  background: #ff7a00;
-  color: white;
-}
-
-.auth-buttons button:hover {
-  transform: translateY(-2px);
-}
-
-/* =======================
-   HERO
-======================= */
-
-.hero {
-  height: 100vh;
-  background:
-    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
-    url("https://images.unsplash.com/photo-1566073771259-6a8506099945")
-    center/cover no-repeat;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  text-align: center;
-  color: white;
-}
-
-.hero-overlay {
-  z-index: 2;
-  max-width: 900px;
-}
-
-.hero h1 {
-  font-size: 4rem;
-  margin-bottom: 15px;
-  letter-spacing: 1px;
-}
-
-.hero p {
-  font-size: 1.2rem;
-  margin-bottom: 25px;
-  opacity: 0.9;
-}
-
-/* CTA BUTTON */
-.cta-button {
-  padding: 14px 28px;
-  border: none;
-  background: #ff7a00;
-  color: white;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: 0.3s;
-}
-
-.cta-button:hover {
-  background: #e56700;
-  transform: translateY(-3px);
-}
-
-/* =======================
-   SECTION GENERAL
-======================= */
-
-section {
-  padding: 80px 10%;
-}
-
-section h2 {
-  text-align: center;
-  font-size: 2.3rem;
-  margin-bottom: 40px;
-}
-
-/* =======================
-   ABOUT
-======================= */
-
-.about {
-  text-align: center;
-  background: #fff;
-}
-
-.about p {
-  max-width: 750px;
-  margin: auto;
-  font-size: 1.1rem;
-  color: #555;
-  line-height: 1.8;
-}
-
-/* =======================
-   ROOMS
-======================= */
-
-.room-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
   gap: 25px;
 }
 
-.room-card {
-  background: white;
-  padding: 25px;
-  border-radius: 15px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-  transition: 0.3s;
-  text-align: center;
-}
-
-.room-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-}
-
-.room-card h3 {
-  margin-bottom: 10px;
-}
-
-.room-card p {
-  color: #666;
-  margin-bottom: 10px;
-}
-
-.room-card h4 {
-  color: #ff7a00;
-  margin: 10px 0;
-}
-
-.room-card button {
-  padding: 10px 18px;
-  border: none;
-  background: #ff7a00;
-  color: white;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.room-card button:hover {
-  background: #e56700;
-  transform: scale(1.05);
-}
-
-/* =======================
-   FACILITIES
-======================= */
-
-.facilities ul {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
-  max-width: 800px;
-  margin: auto;
-}
-
-.facilities li {
-  background: white;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-  text-align: center;
-  font-weight: 500;
-  transition: 0.3s;
-}
-
-.facilities li:hover {
-  transform: translateY(-5px);
-  background: #ff7a00;
-  color: white;
-}
-
-/* =======================
-   FOOTER
-======================= */
-
-.footer {
-  background: #111;
-  color: white;
-  text-align: center;
-  padding: 50px 20px;
-}
-
-.footer h3 {
-  margin-bottom: 10px;
-}
-
-.footer p {
-  opacity: 0.8;
-}
-
-/* =======================
-   RESPONSIVE
-======================= */
-
-@media (max-width: 992px) {
-  .room-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .hero h1 {
-    font-size: 3rem;
-  }
-
-  .facilities ul {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .nav-links {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .room-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .facilities ul {
-    grid-template-columns: 1fr;
-  }
-
-  .hero h1 {
-    font-size: 2.5rem;
-  }
-}/* =======================
-   GLOBAL
-======================= */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: "Poppins", sans-serif;
-  background: #f5f7fb;
-  color: #333;
-}
-
-/* =======================
-   NAVBAR
-======================= */
-
-.navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  padding: 18px 8%;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(12px);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 1000;
-  transition: 0.3s;
-}
-
-.navbar:hover {
-  background: rgba(0, 0, 0, 0.9);
-}
-
-/* LOGO */
-.logo-section {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.logo-section img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #ff7a00;
-}
-
-.logo-section span {
-  color: white;
-  font-size: 22px;
-  font-weight: 700;
-}
-
-/* NAV LINKS */
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 28px;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: white;
-  font-weight: 500;
-  transition: 0.3s;
-}
-
-.nav-links a:hover {
-  color: #ff7a00;
-}
-
 .nav-links li {
   color: white;
   cursor: pointer;
+  font-weight: 500;
   position: relative;
   transition: 0.3s;
-  font-weight: 500;
 }
 
 .nav-links li::after {
@@ -449,7 +90,9 @@ body {
   width: 100%;
 }
 
-/* AUTH BUTTONS */
+/* =========================
+AUTH BUTTONS
+========================= */
 .auth-buttons {
   display: flex;
   gap: 10px;
@@ -457,7 +100,7 @@ body {
 
 .auth-buttons button {
   border: none;
-  padding: 10px 18px;
+  padding: 10px 16px;
   border-radius: 10px;
   cursor: pointer;
   font-weight: 600;
@@ -478,125 +121,166 @@ body {
   transform: translateY(-2px);
 }
 
-/* =======================
-   HERO
-======================= */
+/* =========================
+PROFILE
+========================= */
+.profile-container {
+  position: relative;
+}
 
-.hero {
-  height: 100vh;
-  background:
-    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
-    url("https://images.unsplash.com/photo-1566073771259-6a8506099945")
-    center/cover no-repeat;
+.profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-weight: 600;
+}
 
+.profile-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #ff7a00;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
+  font-weight: bold;
+  color: white;
+}
+
+/* DROPDOWN */
+.profile-dropdown {
+  position: absolute;
+  top: 55px;
+  right: 0;
+  width: 200px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  overflow: hidden;
+}
+
+.profile-dropdown a,
+.profile-dropdown button {
+  display: block;
+  width: 100%;
+  padding: 12px 14px;
+  text-align: left;
+  border: none;
+  background: white;
+  cursor: pointer;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.profile-dropdown a:hover,
+.profile-dropdown button:hover {
+  background: #f5f5f5;
+  color: #ff7a00;
+}
+
+/* =========================
+HERO
+========================= */
+.hero {
+  height: 100vh;
+  background:
+    linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+    url("https://images.unsplash.com/photo-1566073771259-6a8506099945");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   color: white;
 }
 
 .hero-overlay {
-  z-index: 2;
-  max-width: 900px;
+  max-width: 800px;
 }
 
 .hero h1 {
   font-size: 4rem;
-  margin-bottom: 15px;
-  letter-spacing: 1px;
+  font-weight: 800;
+  margin-bottom: 10px;
 }
 
 .hero p {
   font-size: 1.2rem;
   margin-bottom: 25px;
-  opacity: 0.9;
 }
 
 /* CTA BUTTON */
 .cta-button {
   padding: 14px 28px;
-  border: none;
   background: #ff7a00;
   color: white;
-  border-radius: 10px;
-  cursor: pointer;
+  border: none;
+  border-radius: 12px;
   font-weight: 600;
+  cursor: pointer;
   transition: 0.3s;
 }
 
 .cta-button:hover {
-  background: #e56700;
+  background: #e66700;
   transform: translateY(-3px);
 }
 
-/* =======================
-   SECTION GENERAL
-======================= */
-
+/* =========================
+SECTIONS
+========================= */
 section {
   padding: 80px 10%;
 }
 
 section h2 {
   text-align: center;
-  font-size: 2.3rem;
+  font-size: 2.4rem;
   margin-bottom: 40px;
 }
 
-/* =======================
-   ABOUT
-======================= */
-
+/* =========================
+ABOUT
+========================= */
 .about {
+  background: white;
   text-align: center;
-  background: #fff;
 }
 
 .about p {
-  max-width: 750px;
+  max-width: 700px;
   margin: auto;
-  font-size: 1.1rem;
   color: #555;
-  line-height: 1.8;
+  line-height: 1.7;
 }
 
-/* =======================
-   ROOMS SECTION
-======================= */
-
-.rooms {
-  padding: 80px 10%;
-  background: #f5f7fb;
-}
-
-.rooms h2 {
-  text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 40px;
-}
-
-/* GRID */
+/* =========================
+ROOMS
+========================= */
 .room-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 25px;
 }
 
 /* CARD */
 .room-card {
   background: white;
-  border-radius: 18px;
+  border-radius: 16px;
   overflow: hidden;
-  position: relative;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
   transition: 0.3s;
 }
 
 .room-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+  box-shadow: 0 20px 45px rgba(0,0,0,0.15);
 }
 
 /* IMAGE */
@@ -608,92 +292,46 @@ section h2 {
 }
 
 .room-card:hover img {
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 
-
-/* INFO */
-.room-info {
-  padding: 18px;
-  text-align: center;
+/* CONTENT */
+.room-card h3 {
+  padding: 10px 15px 0;
+  font-size: 20px;
 }
 
-.room-info h3 {
-  margin-bottom: 8px;
-}
-
-.room-info p {
+.room-card p {
+  padding: 5px 15px 10px;
   color: #666;
-  font-size: 14px;
-  margin-bottom: 10px;
 }
 
-.room-info h4 {
-  color: #ff7a00;
-  margin-bottom: 12px;
-}
-
-/* BUTTON AREA */
-.room-actions {
-  display: flex;
-  gap: 10px;
-}
-
-.room-actions button {
-  flex: 1;
+/* BUTTON */
+.room-card button {
+  margin: 10px 15px 15px;
+  width: calc(100% - 30px);
   padding: 10px;
-  border-radius: 10px;
   border: none;
-  cursor: pointer;
+  border-radius: 10px;
+  background: #ff7a00;
+  color: white;
   font-weight: 600;
+  cursor: pointer;
   transition: 0.3s;
 }
 
-/* VIEW BUTTON */
-.view-btn {
-  background: #f1f1f1;
-  color: #333;
+.room-card button:hover {
+  background: #e66700;
 }
 
-.view-btn:hover {
-  background: #ddd;
-}
-
-/* BOOK BUTTON */
-.room-actions button:last-child {
-  background: #ff7a00;
-  color: white;
-}
-
-.room-actions button:last-child:hover {
-  background: #e56700;
-}
-
-/* =======================
-   RESPONSIVE
-======================= */
-
-@media (max-width: 992px) {
-  .room-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .room-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* =======================
-   FACILITIES
-======================= */
-
+/* =========================
+FACILITIES
+========================= */
 .facilities ul {
-  list-style: none;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 15px;
+  list-style: none;
   max-width: 800px;
   margin: auto;
 }
@@ -701,23 +339,21 @@ section h2 {
 .facilities li {
   background: white;
   padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
   text-align: center;
-  font-weight: 500;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
   transition: 0.3s;
 }
 
 .facilities li:hover {
-  transform: translateY(-5px);
   background: #ff7a00;
   color: white;
+  transform: translateY(-5px);
 }
 
-/* =======================
-   FOOTER
-======================= */
-
+/* =========================
+FOOTER
+========================= */
 .footer {
   background: #111;
   color: white;
@@ -725,23 +361,10 @@ section h2 {
   padding: 50px 20px;
 }
 
-.footer h3 {
-  margin-bottom: 10px;
-}
-
-.footer p {
-  opacity: 0.8;
-}
-
-/* =======================
-   RESPONSIVE
-======================= */
-
+/* =========================
+RESPONSIVE
+========================= */
 @media (max-width: 992px) {
-  .room-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .hero h1 {
     font-size: 3rem;
   }
@@ -754,7 +377,7 @@ section h2 {
 @media (max-width: 768px) {
   .navbar {
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
   }
 
   .nav-links {
@@ -762,15 +385,11 @@ section h2 {
     justify-content: center;
   }
 
-  .room-grid {
-    grid-template-columns: 1fr;
+  .hero h1 {
+    font-size: 2.5rem;
   }
 
   .facilities ul {
     grid-template-columns: 1fr;
-  }
-
-  .hero h1 {
-    font-size: 2.5rem;
   }
 }

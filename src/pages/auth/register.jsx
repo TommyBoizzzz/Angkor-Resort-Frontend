@@ -17,16 +17,29 @@ function Register() {
     setLoading(true);
     setError("");
 
+    // ✅ basic frontend validation
+    if (!email || !password) {
+      setError("Email and password are required");
+      setLoading(false);
+      return;
+    }
+
     try {
       const result = await registerUser({ email, password });
 
-      if (result.success) {
-        alert("Register success");
+      console.log("REGISTER RESPONSE:", result);
+
+      const response = result?.data || result;
+
+      if (response?.success) {
+        alert("Register successful 🎉 Please login now");
         navigate("/login");
       } else {
-        setError(result.message);
+        setError(response?.message || "Registration failed");
       }
+
     } catch (err) {
+      console.error(err);
       setError("Server error. Please try again.");
     } finally {
       setLoading(false);
@@ -50,6 +63,7 @@ function Register() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="input"
+            required
           />
 
           <input
@@ -58,6 +72,7 @@ function Register() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="input"
+            required
           />
 
           <button
