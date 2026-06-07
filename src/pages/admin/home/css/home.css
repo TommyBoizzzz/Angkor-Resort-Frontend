@@ -1,89 +1,101 @@
-.admin-home {
-  padding: 30px;
-  background: #f5f7fb;
-  min-height: 100vh;
+.admin-layout{
+  display:flex;
+  min-height:100vh;
+  background:#f5f7fb;
 }
 
-.page-header {
-  margin-bottom: 30px;
+/* Sidebar */
+.sidebar{
+  width:260px;
+  background:#111827;
+  color:white;
+  padding:20px;
 }
 
-.page-header h1 {
-  font-size: 32px;
-  color: #222;
+.sidebar h2{
+  margin-bottom:30px;
 }
 
-.page-header p {
-  color: #666;
+.sidebar button{
+  width:100%;
+  border:none;
+  background:none;
+  color:white;
+  padding:14px;
+  text-align:left;
+  cursor:pointer;
+  border-radius:10px;
+  margin-bottom:8px;
+  transition:.3s;
 }
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
-  gap: 20px;
-  margin-bottom: 30px;
+.sidebar button:hover{
+  background:#374151;
 }
 
-.stat-card {
-  border-radius: 15px;
-  padding: 25px;
-  color: white;
+.sidebar .active{
+  background:#2563eb;
 }
 
-.total {
-  background: #3b82f6;
+/* Content */
+.content{
+  flex:1;
+  padding:30px;
 }
 
-.available {
-  background: #10b981;
+.content h1{
+  margin-bottom:25px;
 }
 
-.booked {
-  background: #ef4444;
+/* Cards */
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
 }
 
-.customers {
-  background: #f59e0b;
+.card{
+  color:white;
+  padding:25px;
+  border-radius:15px;
 }
 
-.stat-card span {
-  font-size: 32px;
-  font-weight: bold;
+.card span{
+  font-size:34px;
+  font-weight:bold;
 }
 
-.table-section {
-  background: white;
-  border-radius: 15px;
-  padding: 20px;
-  box-shadow: 0 5px 15px rgba(0,0,0,.08);
+.blue{
+  background:#2563eb;
 }
 
-.table-section table {
-  width: 100%;
-  border-collapse: collapse;
+.green{
+  background:#10b981;
 }
 
-.table-section th,
-.table-section td {
-  padding: 12px;
-  border-bottom: 1px solid #eee;
+.red{
+  background:#ef4444;
 }
 
-.table-section th {
-  background: #f8fafc;
+.orange{
+  background:#f59e0b;
 }
 
-.status {
-  padding: 5px 12px;
-  border-radius: 20px;
-  color: white;
-  font-size: 13px;
+/* Table */
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:white;
+  border-radius:12px;
+  overflow:hidden;
 }
 
-.status.available {
-  background: #10b981;
+th{
+  background:#2563eb;
+  color:white;
 }
 
-.status.booked {
-  background: #ef4444;
+th,td{
+  padding:14px;
+  border-bottom:1px solid #eee;
 }

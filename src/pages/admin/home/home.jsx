@@ -4,7 +4,7 @@ import "./css/home.css";
 
 function AdminHome() {
   const [rooms, setRooms] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState("dashboard");
 
   useEffect(() => {
     loadRooms();
@@ -15,9 +15,7 @@ function AdminHome() {
       const response = await RoomService.getAllRooms();
       setRooms(response.data);
     } catch (error) {
-      console.error("Failed to load rooms:", error);
-    } finally {
-      setLoading(false);
+      console.error(error);
     }
   };
 
@@ -32,88 +30,134 @@ function AdminHome() {
   ).length;
 
   return (
-    <div className="admin-home">
+    <div className="admin-layout">
 
-      <div className="page-header">
-        <h1>Hotel Dashboard</h1>
-        <p>Welcome back, Administrator 👋</p>
+      {/* Sidebar */}
+      <div className="sidebar">
+
+        <h2>🏨 Hotel Admin</h2>
+
+        <button
+          className={activeTab === "dashboard" ? "active" : ""}
+          onClick={() => setActiveTab("dashboard")}
+        >
+          📊 Dashboard
+        </button>
+
+        <button
+          className={activeTab === "rooms" ? "active" : ""}
+          onClick={() => setActiveTab("rooms")}
+        >
+          🛏 Rooms
+        </button>
+
+        <button
+          className={activeTab === "customers" ? "active" : ""}
+          onClick={() => setActiveTab("customers")}
+        >
+          👤 Customers
+        </button>
+
+        <button
+          className={activeTab === "bookings" ? "active" : ""}
+          onClick={() => setActiveTab("bookings")}
+        >
+          📖 Bookings
+        </button>
+
+        <button
+          className={activeTab === "payments" ? "active" : ""}
+          onClick={() => setActiveTab("payments")}
+        >
+          💳 Payments
+        </button>
+
+        <button
+          className={activeTab === "reports" ? "active" : ""}
+          onClick={() => setActiveTab("reports")}
+        >
+          📈 Reports
+        </button>
+
       </div>
 
-      {/* Statistics */}
-      <div className="stats-grid">
+      {/* Content */}
+      <div className="content">
 
-        <div className="stat-card total">
-          <h3>Total Rooms</h3>
-          <span>{totalRooms}</span>
-        </div>
+        {activeTab === "dashboard" && (
+          <>
+            <h1>Dashboard</h1>
 
-        <div className="stat-card available">
-          <h3>Available Rooms</h3>
-          <span>{availableRooms}</span>
-        </div>
+            <div className="stats-grid">
 
-        <div className="stat-card booked">
-          <h3>Booked Rooms</h3>
-          <span>{bookedRooms}</span>
-        </div>
+              <div className="card blue">
+                <h3>Total Rooms</h3>
+                <span>{totalRooms}</span>
+              </div>
 
-        <div className="stat-card customers">
-          <h3>Total Customers</h3>
-          <span>0</span>
-        </div>
+              <div className="card green">
+                <h3>Available</h3>
+                <span>{availableRooms}</span>
+              </div>
 
-      </div>
+              <div className="card red">
+                <h3>Booked</h3>
+                <span>{bookedRooms}</span>
+              </div>
 
-      {/* Room Table */}
-      <div className="table-section">
+              <div className="card orange">
+                <h3>Customers</h3>
+                <span>0</span>
+              </div>
 
-        <div className="table-header">
-          <h2>Room List</h2>
-        </div>
+            </div>
+          </>
+        )}
 
-        {loading ? (
-          <p>Loading rooms...</p>
-        ) : (
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Room Number</th>
-                <th>Room Type</th>
-                <th>Price</th>
-                <th>Status</th>
-              </tr>
-            </thead>
+        {activeTab === "rooms" && (
+          <>
+            <h1>Room Management</h1>
 
-            <tbody>
-              {rooms.length > 0 ? (
-                rooms.map(room => (
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Room No</th>
+                  <th>Type</th>
+                  <th>Price</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {rooms.map(room => (
                   <tr key={room.id}>
                     <td>{room.id}</td>
                     <td>{room.roomNumber}</td>
                     <td>{room.roomType}</td>
                     <td>${room.price}</td>
-                    <td>
-                      <span
-                        className={
-                          room.status?.toLowerCase() === "available"
-                            ? "status available"
-                            : "status booked"
-                        }
-                      >
-                        {room.status}
-                      </span>
-                    </td>
+                    <td>{room.status}</td>
                   </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="5">No rooms found</td>
-                </tr>
-              )}
-            </tbody>
+                ))}
+              </tbody>
+            </table>
+          </>
+        )}
 
-          </table>
+        {activeTab === "customers" && (
+          <h1>Customer Management</h1>
+        )}
+
+        {activeTab === "bookings" && (
+          <h1>Booking Management</h1>
+        )}
+
+        {activeTab === "payments" && (
+          <h1>Payment Management</h1>
+        )}
+
+        {activeTab === "reports" && (
+          <h1>Reports & Analytics</h1>
         )}
 
       </div>
