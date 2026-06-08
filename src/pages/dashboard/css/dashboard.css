@@ -1,395 +1,75 @@
-/* =========================
-GLOBAL RESET
-========================= */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  scroll-behavior: smooth;
+/* .dashboard {
+  min-height: 100vh;
+  background: #faf8f3;
 }
 
-body {
-  font-family: "Poppins", sans-serif;
-  background: #f4f6fb;
-  color: #333;
-}
-
-/* =========================
-NAVBAR
-========================= */
 .navbar {
   position: fixed;
-  top: 0;
   width: 100%;
-  padding: 16px 8%;
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(12px);
+  top: 0;
+  z-index: 1000;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 1000;
-  transition: 0.3s;
+
+  padding: 20px 60px;
+
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(12px);
 }
 
-.navbar:hover {
-  background: rgba(0, 0, 0, 0.9);
-}
-
-/* LOGO */
 .logo-section {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .logo-section img {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #ff7a00;
+  width: 44px;
 }
 
-.logo-section span {
-  color: white;
-  font-size: 20px;
-  font-weight: 700;
-}
-
-/* NAV LINKS */
 .nav-links {
-  list-style: none;
   display: flex;
-  gap: 25px;
+  gap: 30px;
+  list-style: none;
 }
 
 .nav-links li {
-  color: white;
   cursor: pointer;
-  font-weight: 500;
-  position: relative;
-  transition: 0.3s;
 }
 
-.nav-links li::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -5px;
-  width: 0%;
-  height: 2px;
-  background: #ff7a00;
-  transition: 0.3s;
-}
-
-.nav-links li:hover {
-  color: #ff7a00;
-}
-
-.nav-links li:hover::after {
-  width: 100%;
-}
-
-/* =========================
-AUTH BUTTONS
-========================= */
-.auth-buttons {
-  display: flex;
-  gap: 10px;
-}
-
-.auth-buttons button {
-  border: none;
-  padding: 10px 16px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: 0.3s;
-}
-
-.auth-buttons button:first-child {
-  background: white;
-  color: #333;
-}
-
-.auth-buttons button:last-child {
-  background: #ff7a00;
-  color: white;
-}
-
-.auth-buttons button:hover {
-  transform: translateY(-2px);
-}
-
-/* =========================
-PROFILE
-========================= */
-.profile-container {
-  position: relative;
-}
-
-.profile-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: white;
-  font-weight: 600;
-}
-
-.profile-avatar {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: #ff7a00;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  color: white;
-}
-
-/* DROPDOWN */
-.profile-dropdown {
-  position: absolute;
-  top: 55px;
-  right: 0;
-  width: 200px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-  overflow: hidden;
-}
-
-.profile-dropdown a,
-.profile-dropdown button {
-  display: block;
-  width: 100%;
-  padding: 12px 14px;
-  text-align: left;
-  border: none;
-  background: white;
-  cursor: pointer;
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
-}
-
-.profile-dropdown a:hover,
-.profile-dropdown button:hover {
-  background: #f5f5f5;
-  color: #ff7a00;
-}
-
-/* =========================
-HERO
-========================= */
 .hero {
   height: 100vh;
-  background:
-    linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-    url("https://images.unsplash.com/photo-1566073771259-6a8506099945");
-  background-size: cover;
-  background-position: center;
+
   display: flex;
-  align-items: center;
   justify-content: center;
-  text-align: center;
-  color: white;
+  align-items: center;
+
+  background:
+    linear-gradient(rgba(0,0,0,.35),rgba(0,0,0,.55)),
+    url("/images/hero-resort.png");
+
+  background-size: cover;
 }
 
 .hero-overlay {
-  max-width: 800px;
-}
-
-.hero h1 {
-  font-size: 4rem;
-  font-weight: 800;
-  margin-bottom: 10px;
-}
-
-.hero p {
-  font-size: 1.2rem;
-  margin-bottom: 25px;
-}
-
-/* CTA BUTTON */
-.cta-button {
-  padding: 14px 28px;
-  background: #ff7a00;
+  text-align: center;
   color: white;
-  border: none;
-  border-radius: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s;
 }
 
-.cta-button:hover {
-  background: #e66700;
-  transform: translateY(-3px);
-}
+.cta-button {
+  margin-top: 20px;
+  padding: 14px 34px;
 
-/* =========================
-SECTIONS
-========================= */
-section {
-  padding: 80px 10%;
-}
-
-section h2 {
-  text-align: center;
-  font-size: 2.4rem;
-  margin-bottom: 40px;
-}
-
-/* =========================
-ABOUT
-========================= */
-.about {
-  background: white;
-  text-align: center;
-}
-
-.about p {
-  max-width: 700px;
-  margin: auto;
-  color: #555;
-  line-height: 1.7;
-}
-
-/* =========================
-ROOMS
-========================= */
-.room-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px;
-}
-
-/* CARD */
-.room-card {
-  background: white;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-  transition: 0.3s;
-}
-
-.room-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 45px rgba(0,0,0,0.15);
-}
-
-/* IMAGE */
-.room-card img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  transition: 0.4s;
-}
-
-.room-card:hover img {
-  transform: scale(1.1);
-}
-
-/* CONTENT */
-.room-card h3 {
-  padding: 10px 15px 0;
-  font-size: 20px;
-}
-
-.room-card p {
-  padding: 5px 15px 10px;
-  color: #666;
-}
-
-/* BUTTON */
-.room-card button {
-  margin: 10px 15px 15px;
-  width: calc(100% - 30px);
-  padding: 10px;
   border: none;
   border-radius: 10px;
-  background: #ff7a00;
+
+  background: #9f7b4f;
   color: white;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s;
 }
 
-.room-card button:hover {
-  background: #e66700;
-}
-
-/* =========================
-FACILITIES
-========================= */
-.facilities ul {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
-  list-style: none;
-  max-width: 800px;
-  margin: auto;
-}
-
-.facilities li {
-  background: white;
-  padding: 15px;
-  text-align: center;
-  border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-  transition: 0.3s;
-}
-
-.facilities li:hover {
-  background: #ff7a00;
-  color: white;
-  transform: translateY(-5px);
-}
-
-/* =========================
-FOOTER
-========================= */
 .footer {
-  background: #111;
-  color: white;
+  padding: 60px;
   text-align: center;
-  padding: 50px 20px;
-}
-
-/* =========================
-RESPONSIVE
-========================= */
-@media (max-width: 992px) {
-  .hero h1 {
-    font-size: 3rem;
-  }
-
-  .facilities ul {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .nav-links {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .hero h1 {
-    font-size: 2.5rem;
-  }
-
-  .facilities ul {
-    grid-template-columns: 1fr;
-  }
-}
+} */
