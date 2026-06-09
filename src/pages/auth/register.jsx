@@ -17,7 +17,7 @@ function Register() {
     setLoading(true);
     setError("");
 
-    // ✅ basic frontend validation
+    //basic frontend validation
     if (!email || !password) {
       setError("Email and password are required");
       setLoading(false);

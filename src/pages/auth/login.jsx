@@ -21,7 +21,7 @@ function Login() {
 
       console.log("LOGIN RESPONSE:", result);
 
-      // ✅ FIX: handle different backend structures safely
+      //FIX: handle different backend structures safely
       const response = result?.data || result;
 
       if (response?.success) {
@@ -32,7 +32,7 @@ function Login() {
           return;
         }
 
-        // ✅ store only needed data (better security)
+        //store only needed data (better security)
         const userData = {
           id: user.id,
           username: user.username,
@@ -44,7 +44,7 @@ function Login() {
 
         localStorage.setItem("user", JSON.stringify(userData));
 
-        // ✅ redirect based on role
+        //redirect based on role
         if (user.role === "admin") {
           navigate("/admin");
         } else {
