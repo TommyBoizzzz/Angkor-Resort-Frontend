@@ -1,0 +1,160 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap");
+
+.register-container {
+  min-height: 100vh;
+  background: url("https://images.unsplash.com/photo-1578683010236-d716f9a3f461")
+    center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-overlay {
+  width: 100%;
+  min-height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-card {
+  width: 470px;
+  padding: 45px;
+
+  background: rgba(20, 20, 20, 0.45);
+
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  border-radius: 18px;
+
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+
+  animation: fadeIn 0.5s ease;
+
+  font-family: "Playfair Display", serif;
+}
+
+.register-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.register-header h2 {
+  color: white;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.register-header p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.input {
+  width: 100%;
+  padding: 15px 18px;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  border-radius: 10px;
+
+  color: white;
+  font-size: 15px;
+
+  transition: all 0.3s ease;
+}
+
+.input::placeholder {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.input:focus {
+  outline: none;
+
+  border-color: rgba(255, 255, 255, 0.4);
+
+  background: rgba(255, 255, 255, 0.12);
+
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.08);
+}
+
+.register-btn {
+  width: 100%;
+  padding: 15px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #8e6409;
+  color: white;
+
+  font-family: "Playfair Display", serif;
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+.register-btn:hover {
+  background: #222;
+  transform: translateY(-2px);
+}
+
+.error {
+  background: rgba(255, 0, 0, 0.15);
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  color: white;
+
+  padding: 12px;
+
+  border-radius: 8px;
+
+  margin-bottom: 15px;
+}
+
+.bottom-text {
+  text-align: center;
+  margin-top: 25px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.bottom-text a {
+  color: #8e6409;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.bottom-text a:hover {
+  text-decoration: underline;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
