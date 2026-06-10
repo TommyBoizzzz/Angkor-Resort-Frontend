@@ -1,6 +1,8 @@
+
 import { useState } from "react";
 import { registerUser } from "../../services/authService";
 import { useNavigate, Link } from "react-router-dom";
+import logo from "../../asset/logo.png";
 import "./css/register.css";
 
 function Register() {
@@ -8,7 +10,6 @@ function Register() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -17,9 +18,8 @@ function Register() {
     setLoading(true);
     setError("");
 
-    //basic frontend validation
     if (!email || !password) {
-      setError("Email and password are required");
+      setError("Email and Password are required");
       setLoading(false);
       return;
     }
@@ -27,17 +27,14 @@ function Register() {
     try {
       const result = await registerUser({ email, password });
 
-      console.log("REGISTER RESPONSE:", result);
-
       const response = result?.data || result;
 
       if (response?.success) {
-        alert("Register successful 🎉 Please login now");
+        alert("Register successful 🎉");
         navigate("/login");
       } else {
         setError(response?.message || "Registration failed");
       }
-
     } catch (err) {
       console.error(err);
       setError("Server error. Please try again.");
@@ -48,48 +45,63 @@ function Register() {
 
   return (
     <div className="register-container">
-      <div className="register-card">
+      <div className="overlay">
+        <div className="register-card">
 
-        <h2 className="title">🏨 Angkor Resort</h2>
-        <p className="subtitle">Create your account</p>
+          <div className="logo-section">
+            <img
+              src={logo}
+              alt="Angkor Resort"
+              className="resort-logo"
+            />
 
-        {error && <div className="error">{error}</div>}
+            <h1>Angkor Resort</h1>
 
-        <form onSubmit={handleRegister} className="form">
+            <p className="portal-text">
+              CREATE YOUR ACCOUNT
+            </p>
+          </div>
 
-          <input
-            type="email"
-            placeholder="Email address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="input"
-            required
-          />
+          {error && <div className="error">{error}</div>}
 
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="input"
-            required
-          />
+          <form onSubmit={handleRegister} className="form">
 
-          <button
-            type="submit"
-            className="button"
-            disabled={loading}
-          >
-            {loading ? "Creating..." : "Register"}
-          </button>
+            <div className="input-group">
+              <input
+                type="email"
+                placeholder="Email Address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
 
-        </form>
+            <div className="input-group">
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
 
-        <p className="bottom-text">
-          Already have an account?{" "}
-          <Link to="/">Login</Link>
-        </p>
+            <button
+              type="submit"
+              className="register-btn"
+              disabled={loading}
+            >
+              {loading ? "Creating..." : "Register"}
+            </button>
 
+          </form>
+
+          <p className="bottom-text">
+            Already have an account?
+            <Link to="/login"> Login</Link>
+          </p>
+
+        </div>
       </div>
     </div>
   );

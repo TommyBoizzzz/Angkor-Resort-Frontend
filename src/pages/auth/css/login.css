@@ -1,30 +1,27 @@
+
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap");
 
-/* Background */
-.login-container {
+.register-container {
   min-height: 100vh;
-  background: url("https://images.unsplash.com/photo-1566073771259-6a8506099945")
+  background: url("https://images.unsplash.com/photo-1578683010236-d716f9a3f461")
     center/cover no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* Dark Overlay */
-.overlay {
+.register-overlay {
   width: 100%;
   min-height: 100vh;
-
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.5);
 
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* Glass Login Card */
-.login-card {
-  width: 430px;
+.register-card {
+  width: 470px;
   padding: 45px;
 
   background: rgba(20, 20, 20, 0.45);
@@ -43,58 +40,31 @@
   font-family: "Playfair Display", serif;
 }
 
-/* Logo + Resort Name */
-.logo-section {
+.register-header {
   text-align: center;
   margin-bottom: 30px;
 }
 
-.brand-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-}
-
-.resort-logo {
-  width: 55px;
-  height: 55px;
-  object-fit: contain;
-}
-
-.brand-row h1 {
-  margin: 0;
-
+.register-header h2 {
   color: white;
-
   font-size: 2rem;
-  font-weight: 700;
-
-  line-height: 1;
+  margin-bottom: 10px;
 }
 
-.portal-text {
-  margin-top: 8px;
-
+.register-header p {
   color: rgba(255, 255, 255, 0.8);
-
-  font-size: 13px;
-
+  font-size: 14px;
   letter-spacing: 1px;
-  text-transform: uppercase;
 }
 
-/* Form */
 .form {
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
 
-/* Inputs */
-.input-group input {
+.input {
   width: 100%;
-
   padding: 15px 18px;
 
   background: rgba(255, 255, 255, 0.08);
@@ -109,11 +79,11 @@
   transition: all 0.3s ease;
 }
 
-.input-group input::placeholder {
+.input::placeholder {
   color: rgba(255, 255, 255, 0.65);
 }
 
-.input-group input:focus {
+.input:focus {
   outline: none;
 
   border-color: rgba(255, 255, 255, 0.4);
@@ -123,17 +93,15 @@
   box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.08);
 }
 
-/* Login Button */
-.login-btn {
+.register-btn {
   width: 100%;
-
   padding: 15px;
 
   border: none;
   border-radius: 10px;
 
   background: #8e6409;
-  color: rgb(255, 255, 255);
+  color: white;
 
   font-family: "Playfair Display", serif;
   font-size: 16px;
@@ -144,17 +112,11 @@
   transition: all 0.3s ease;
 }
 
-.login-btn:hover {
+.register-btn:hover {
   background: #222;
   transform: translateY(-2px);
 }
 
-.login-btn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-/* Error Message */
 .error {
   background: rgba(255, 0, 0, 0.15);
 
@@ -169,30 +131,22 @@
   margin-bottom: 15px;
 }
 
-/* Register Link */
 .bottom-text {
   text-align: center;
-
   margin-top: 25px;
-
   color: rgba(255, 255, 255, 0.8);
 }
 
 .bottom-text a {
   color: #8e6409;
-
-  font-weight: 700;
-
-  margin-left: 5px;
-
   text-decoration: none;
+  font-weight: 700;
 }
 
 .bottom-text a:hover {
   text-decoration: underline;
 }
 
-/* Animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
