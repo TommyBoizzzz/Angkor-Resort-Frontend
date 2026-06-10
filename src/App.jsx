@@ -4,6 +4,7 @@ import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import Dashboard from "./pages/dashboard/Dashboard";
 import AdminHome from "./pages/admin/home/home";
+import ProfileSetting from "./pages/settings/profile"
 
 function App() {
   return (
@@ -14,6 +15,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/admin" element={<AdminHome />} />
+        <Route path="/profile" element={<ProfileSetting />} />
+
         {/* hello world */}
       </Routes>
     </BrowserRouter>
