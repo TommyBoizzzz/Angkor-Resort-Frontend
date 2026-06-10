@@ -14,6 +14,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/admin" element={<AdminHome />} />
+        {/* hello world */}
       </Routes>
     </BrowserRouter>
   );
