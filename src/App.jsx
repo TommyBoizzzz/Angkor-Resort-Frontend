@@ -4,6 +4,7 @@ import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import Dashboard from "./pages/dashboard/Dashboard";
 import AdminHome from "./pages/admin/home/home";
+import RoomDetails from "./components/room-details";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/admin" element={<AdminHome />} />
+        <Route path="/room-details/:roomId" element={<RoomDetails />}/>
       </Routes>
     </BrowserRouter>
   );
