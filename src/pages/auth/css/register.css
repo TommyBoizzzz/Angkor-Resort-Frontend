@@ -1,0 +1,119 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap");
+
+.register-container {
+  min-height: 100vh;
+  background: url("https://images.unsplash.com/photo-1566073771259-6a8506099945")
+    center/cover no-repeat;
+}
+
+.overlay {
+  width: 100%;
+  min-height: 100vh;
+  background: rgba(0, 0, 0, 0.45);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-card {
+  width: 430px;
+  padding: 45px;
+
+  background: rgba(20, 20, 20, 0.45);
+  backdrop-filter: blur(15px);
+
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.15);
+
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+
+  font-family: "Playfair Display", serif;
+}
+
+.logo-section {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.resort-logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.logo-section h1 {
+  color: white;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.portal-text {
+  color: rgba(255,255,255,0.8);
+  font-size: 13px;
+  letter-spacing: 2px;
+  margin-top: 8px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 15px;
+
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 10px;
+
+  color: white;
+}
+
+.input-group input::placeholder {
+  color: rgba(255,255,255,0.6);
+}
+
+.register-btn {
+  padding: 15px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #8e6409;
+  color: white;
+
+  font-family: "Playfair Display", serif;
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.register-btn:hover {
+  background: #222;
+}
+
+.error {
+  background: rgba(255,0,0,0.15);
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.bottom-text {
+  text-align: center;
+  margin-top: 20px;
+  color: rgba(255,255,255,0.8);
+}
+
+.bottom-text a {
+  color: #8e6409;
+  font-weight: 700;
+  text-decoration: none;
+}

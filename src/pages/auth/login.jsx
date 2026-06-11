@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { loginUser } from "../../services/authService";
 import { useNavigate, Link } from "react-router-dom";
+import logo from "../../asset/logo.png";
 import "./css/login.css";
 
 function Login() {
@@ -19,9 +20,6 @@ function Login() {
     try {
       const result = await loginUser({ email, password });
 
-      console.log("LOGIN RESPONSE:", result);
-
-      //FIX: handle different backend structures safely
       const response = result?.data || result;
 
       if (response?.success) {
@@ -32,29 +30,25 @@ function Login() {
           return;
         }
 
-        //store only needed data (better security)
         const userData = {
           id: user.id,
           username: user.username,
           email: user.email,
           role: user.role,
           phoneNumber: user.phoneNumber,
-          dateOfBirth: user.dateOfBirth
+          dateOfBirth: user.dateOfBirth,
         };
 
         localStorage.setItem("user", JSON.stringify(userData));
 
-        //redirect based on role
         if (user.role === "admin") {
           navigate("/admin");
         } else {
           navigate("/");
         }
-
       } else {
         setError(response?.message || "Login failed");
       }
-
     } catch (err) {
       console.error(err);
       setError("Server error. Please try again.");
@@ -65,43 +59,63 @@ function Login() {
 
   return (
     <div className="login-container">
-      <div className="login-card">
+      <div className="overlay">
+        <div className="login-card">
 
-        <h2 className="title">🏨 Angkor Resort</h2>
-        <p className="subtitle">Login to your account</p>
+          <div className="logo-section">
 
-        {error && <div className="error">{error}</div>}
+        <div className="brand-row">
+    <img
+      src={logo}
+      alt="Angkor Resort"
+      className="resort-logo"
+    />
 
-        <form onSubmit={handleLogin} className="form">
+    <h1>Angkor Resort</h1>
+  </div>
 
-          <input
-            type="email"
-            placeholder="Email address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="input"
-            required
-          />
+  <p className="portal-text">Client Portal</p>
 
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="input"
-            required
-          />
+</div>
 
-          <button type="submit" className="button" disabled={loading}>
-            {loading ? "Logging in..." : "Login"}
-          </button>
+          {error && <div className="error">{error}</div>}
 
-        </form>
+          <form onSubmit={handleLogin} className="form">
+            <div className="input-group">
+              <input
+                type="email"
+                placeholder="Email Address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
 
-        <p className="bottom-text">
-          Don't have an account? <Link to="/register">Register</Link>
-        </p>
+            <div className="input-group">
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
 
+            <button
+              type="submit"
+              className="login-btn"
+              disabled={loading}
+            >
+              {loading ? "Signing In..." : "Sign In"}
+            </button>
+          </form>
+
+          <div className="bottom-text">
+            <span>Don't have an account?</span>
+            <Link to="/register">Create Account</Link>
+          </div>
+
+        </div>
       </div>
     </div>
   );
