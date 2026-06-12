@@ -2,7 +2,7 @@
 // const API_URL = "http://localhost:8080/api/auth";
 
 //for server connection production
-const API_URL = "http://angkor-resort-backend-production.up.railway.app/api/auth";
+const API_URL = "https://angkor-resort-backend-production.up.railway.app/api/auth";
 
 // REGISTER
 export const registerUser = async (userData) => {
