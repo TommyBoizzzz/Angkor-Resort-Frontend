@@ -41,7 +41,10 @@ function AdminHome() {
           <li>📅 Bookings</li>
           <li>💳 Payments</li>
           {/* <li>🧹 Housekeeping</li>
-          <li>⚙ Settings</li> */}
+          <li>⚙ Settings</li> */}\
+
+
+          
         </ul>
       </aside>
 
