@@ -1,10 +1,10 @@
-//for server connection on local
-// const API_URL = "http://localhost:8080/api/auth";
+import BASE_URL from "../../config/global";
 
-//for server connection production
-const API_URL = "https://angkor-resort-backend-production.up.railway.app/api/auth";
+const API_URL = `${BASE_URL}/auth`;
 
+// =========================
 // REGISTER
+// =========================
 export const registerUser = async (userData) => {
     const response = await fetch(`${API_URL}/register`, {
         method: "POST",
@@ -14,10 +14,16 @@ export const registerUser = async (userData) => {
         body: JSON.stringify(userData)
     });
 
-    return await response.json();
+    if (!response.ok) {
+        throw new Error("Register request failed");
+    }
+
+    return response.json();
 };
 
+// =========================
 // LOGIN
+// =========================
 export const loginUser = async (userData) => {
     const response = await fetch(`${API_URL}/login`, {
         method: "POST",
@@ -27,5 +33,9 @@ export const loginUser = async (userData) => {
         body: JSON.stringify(userData)
     });
 
-    return await response.json();
+    if (!response.ok) {
+        throw new Error("Login request failed");
+    }
+
+    return response.json();
 };
