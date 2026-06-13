@@ -1,29 +1,32 @@
+/* ===================== GLOBAL ===================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
 .db-wrapper {
   min-height: 100vh;
   background: #0f172a;
-  color: white;
+  color: #fff;
 }
 
-/* HEADER */
-
+/* ===================== HEADER ===================== */
 .db-header {
   position: fixed;
   top: 0;
   left: 0;
-
   width: 100%;
   height: 70px;
 
   background: #111827;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  padding: 0 25px;
-
-  border-bottom: 1px solid #374151;
-
+  padding: 0 20px;
+  border-bottom: 1px solid #1f2937;
   z-index: 1000;
 }
 
@@ -34,46 +37,35 @@
 }
 
 .db-menu-btn {
+  font-size: 26px;
+  background: none;
   border: none;
-  background: transparent;
   color: white;
-  font-size: 28px;
   cursor: pointer;
 }
 
 .db-menu-btn:hover {
-  color: #60a5fa;
+  color: #38bdf8;
 }
 
-/* SIDEBAR */
-
+/* ===================== SIDEBAR ===================== */
 .db-sidebar {
   position: fixed;
   top: 70px;
   left: 0;
-
   height: calc(100vh - 70px);
-
   background: #111827;
-
-  transition: all .3s ease;
-
+  border-right: 1px solid #1f2937;
   overflow: hidden;
+  transition: 0.3s;
 }
 
 .db-sidebar-show {
-  width: 250px;
+  width: 240px;
 }
 
 .db-sidebar-hide {
   width: 0;
-}
-
-.db-logo {
-  padding: 25px;
-  font-size: 22px;
-  font-weight: bold;
-  text-align: center;
 }
 
 .db-menu-list {
@@ -81,24 +73,25 @@
 }
 
 .db-menu-list li {
-  padding: 16px 25px;
+  padding: 15px 20px;
   cursor: pointer;
-  transition: .3s;
+  transition: 0.3s;
+  border-bottom: 1px solid #1f2937;
 }
 
 .db-menu-list li:hover {
   background: #1e293b;
+  color: #38bdf8;
 }
 
-/* MAIN */
-
+/* ===================== MAIN ===================== */
 .db-main {
-  padding: 90px 25px 25px;
-  transition: all .3s ease;
+  padding: 90px 20px 20px;
+  transition: 0.3s;
 }
 
 .db-main-open {
-  margin-left: 250px;
+  margin-left: 240px;
 }
 
 .db-main-close {
@@ -106,73 +99,195 @@
 }
 
 .db-title {
-  margin-bottom: 25px;
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
-/* CARDS */
-
+/* ===================== DASHBOARD CARDS ===================== */
 .db-card-grid {
   display: grid;
-
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(250px, 1fr)
-  );
-
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
 }
 
 .db-card {
   background: #1e293b;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #1f2937;
+  transition: 0.3s;
+}
 
-  padding: 25px;
-
-  border-radius: 15px;
-
-  border: 1px solid #334155;
+.db-card:hover {
+  transform: translateY(-5px);
+  border-color: #38bdf8;
 }
 
 .db-card h3 {
-  margin-bottom: 10px;
+  font-size: 14px;
   color: #94a3b8;
 }
 
 .db-card h1 {
-  color: #60a5fa;
+  margin-top: 10px;
+  font-size: 28px;
+  color: #38bdf8;
 }
 
-/* CHART AREA */
-
-.db-chart-row {
-  margin-top: 30px;
-
-  display: grid;
-
-  grid-template-columns: 1fr 1fr;
-
-  gap: 20px;
-}
-
-.db-chart-box {
+/* ===================== TABLE ===================== */
+.db-table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
   background: #1e293b;
-
-  min-height: 350px;
-
-  border-radius: 15px;
-
-  padding: 20px;
-
-  border: 1px solid #334155;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-@media (max-width: 768px) {
+.db-table th,
+.db-table td {
+  padding: 12px;
+  border-bottom: 1px solid #1f2937;
+  text-align: left;
+}
 
+.db-table th {
+  background: #111827;
+  color: #94a3b8;
+}
+
+.db-table tr:hover {
+  background: #0f172a;
+}
+
+/* ===================== BUTTONS ===================== */
+button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin: 3px;
+  transition: 0.3s;
+  font-size: 13px;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+/* colors */
+button:nth-child(1) {
+  background: #3b82f6;
+  color: white;
+}
+
+button:nth-child(2) {
+  background: #ef4444;
+  color: white;
+}
+
+button:nth-child(3) {
+  background: #22c55e;
+  color: white;
+}
+
+/* ===================== MODAL ===================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0,0,0,0.7);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 2000;
+}
+
+.modal-box {
+  width: 380px;
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #334155;
+
+  animation: pop 0.2s ease;
+}
+
+@keyframes pop {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-box h3 {
+  margin-bottom: 10px;
+}
+
+/* inputs */
+.modal-box input {
+  width: 100%;
+  margin: 8px 0;
+  padding: 10px;
+
+  border-radius: 6px;
+  border: 1px solid #334155;
+  background: #0f172a;
+  color: white;
+}
+
+.modal-box input:focus {
+  border-color: #38bdf8;
+  outline: none;
+}
+
+/* modal buttons */
+.modal-box button {
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* ===================== REVIEWS ===================== */
+.db-review-item {
+  background: #1e293b;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: 1px solid #1f2937;
+}
+
+.db-review-item:hover {
+  border-color: #38bdf8;
+}
+
+.db-review-item b {
+  color: #38bdf8;
+}
+
+.db-review-item p {
+  margin-top: 5px;
+  color: #cbd5e1;
+}
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 768px) {
   .db-main-open {
     margin-left: 0;
   }
 
-  .db-chart-row {
+  .db-sidebar-show {
+    width: 200px;
+  }
+
+  .db-card-grid {
     grid-template-columns: 1fr;
   }
 
+  .modal-box {
+    width: 90%;
+  }
 }
