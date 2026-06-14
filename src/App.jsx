@@ -13,8 +13,8 @@ import Payment from "./pages/booking/payment";
 // Admin
 import AdminHome from "./admin/pages/dashboard";
 
-// import RoomDetail from "./pages/rooms/roomdetail";
-// import RoomDetails from "./components/room-details";
+// Protected Route
+import AdminRoute from "./admin/routes/AdminRoute";
 
 function App() {
   return (
@@ -34,12 +34,15 @@ function App() {
         <Route path="/booking" element={<Booking />} />
         <Route path="/payment" element={<Payment />} />
 
-        {/* Admin */}
-        <Route path="/admin" element={<AdminHome />} />
-
-        {/* Future */}
-        {/* <Route path="/roomdetail" element={<RoomDetail />} /> */}
-        {/* <Route path="/room-details/:roomId" element={<RoomDetails />} /> */}
+        {/* Admin Only */}
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <AdminHome />
+            </AdminRoute>
+          }
+        />
 
       </Routes>
     </BrowserRouter>
