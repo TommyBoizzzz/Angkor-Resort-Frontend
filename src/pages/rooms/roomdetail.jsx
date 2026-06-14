@@ -11,12 +11,13 @@ export default function RoomDetails() {
     const navigate = useNavigate();
 
     const [showProfile, setShowProfile] = useState(false);
+    const [roomCount, setRoomCount] = useState(1);
 
     const user = JSON.parse(localStorage.getItem("user") || "null");
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, []);
+    }, [roomId]);
 
     const handleLogout = () => {
         localStorage.removeItem("user");
@@ -27,55 +28,74 @@ export default function RoomDetails() {
         standard: {
             title: "STANDARD ROOM",
             price: "$80 / Night",
-            image: "/images/room-standard.png",
-            description:
-                "A cozy retreat with warm wood tones and a peaceful garden view.",
+            images: [
+                "/images/room-standard.png",
+                "/images/room-standard.png",
+                "/images/room-standard.png"
+            ],
+            description: "A cozy retreat with warm wood tones and a peaceful garden view.",
             guests: "2 Guests",
             beds: "1 Queen Bed",
             size: "30 m²",
             view: "Garden View",
+            total: 10,
+            booked: 7,
         },
 
         deluxe: {
             title: "DELUXE ROOM",
             price: "$120 / Night",
-            image: "/images/room-deluxe.png",
-            description:
-                "Spacious comfort with a king bed, modern design, and premium amenities.",
+            images: [
+                "/images/room-deluxe.png",
+                "/images/room-standard.png",
+                "/images/room-standard.png"
+            ],
+            description: "Spacious comfort with a king bed, modern design, and premium amenities.",
             guests: "2 Guests",
             beds: "1 King Bed",
             size: "45 m²",
             view: "Pool View",
+            total: 8,
+            booked: 8,
         },
 
         suite: {
             title: "SUITE",
             price: "$180 / Night",
-            image: "/images/room-suite.png",
-            description:
-                "Premium accommodation featuring luxury furnishings and a private terrace.",
+            images: [
+                "/images/room-suite.png",
+                "/images/room-standard.png",
+                "/images/room-standard.png"
+            ],
+            description: "Premium accommodation featuring luxury furnishings and a private terrace.",
             guests: "3 Guests",
             beds: "1 King Bed",
             size: "55 m²",
             view: "Resort View",
+            total: 5,
+            booked: 2,
         },
 
         "family-suite": {
             title: "FAMILY SUITE",
             price: "$250 / Night",
-            image: "/images/room-suite.png",
-            description:
-                "Perfect for families with two bedrooms, a living area, and beautiful garden views.",
+            images: [
+                "/images/room-suite.png",
+                "/images/room-standard.png",
+                "/images/room-standard.png"
+            ],
+            description: "Perfect for families with two bedrooms, a living area, and beautiful garden views.",
             guests: "6 Guests",
             beds: "1 King Bed + 2 Single Beds",
             size: "65 m²",
             view: "Garden View",
+            total: 3,
+            booked: 1,
         },
     };
 
     const room = rooms[roomId];
 
-    // ❌ NOT FOUND PAGE (UNCHANGED STYLE)
     if (!room) {
         return (
             <>
@@ -94,10 +114,7 @@ export default function RoomDetails() {
                         The room you are looking for does not exist.
                     </p>
 
-                    <button
-                        onClick={() => navigate("/")}
-                        className="mt-6 book-btn"
-                    >
+                    <button onClick={() => navigate("/")} className="mt-6 book-btn">
                         Back Home
                     </button>
                 </main>
@@ -106,6 +123,36 @@ export default function RoomDetails() {
             </>
         );
     }
+
+    const available = room.total - room.booked;
+    const isFull = available <= 0;
+
+    const handleBookNow = () => {
+        if (isFull) {
+            alert("❌ This room is fully booked.");
+            return;
+        }
+
+        if (roomCount > available) {
+            alert(`❌ Only ${available} room(s) available.`);
+            return;
+        }
+
+        if (roomCount <= 0) {
+            alert("❌ Please select at least 1 room.");
+            return;
+        }
+
+        navigate("/payment", {
+            state: {
+                roomName: room.title,
+                roomPrice: Number(room.price.replace(/[^0-9]/g, "")),
+                roomCount,
+                totalPrice:
+                    Number(room.price.replace(/[^0-9]/g, "")) * roomCount,
+            },
+        });
+    };
 
     return (
         <>
@@ -127,24 +174,28 @@ export default function RoomDetails() {
                             {/* LEFT SIDE */}
                             <div className="lg:col-span-2">
 
-                                <img
-                                    src={room.image}
-                                    alt={room.title}
-                                    className="room-image"
-                                />
+                                {/* ✅ SCROLL IMAGE GALLERY */}
+                                <div className="image-gallery-scroll">
 
-                                <h1 className="room-title">
-                                    {room.title}
-                                </h1>
+                                    <div className="scroll-container">
+                                        {room.images.map((img, index) => (
+                                            <img
+                                                key={index}
+                                                src={img}
+                                                alt="room"
+                                                className="scroll-image"
+                                            />
+                                        ))}
+                                    </div>
 
-                                <p className="room-description">
-                                    {room.description}
-                                </p>
+                                </div>
+
+                                <h1 className="room-title">{room.title}</h1>
+
+                                <p className="room-description">{room.description}</p>
 
                                 <div className="room-details-section">
-                                    <h3 className="section-title">
-                                        Details
-                                    </h3>
+                                    <h3 className="section-title">Details</h3>
 
                                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                                         <p className="detail-item">{room.guests}</p>
@@ -155,9 +206,7 @@ export default function RoomDetails() {
                                 </div>
 
                                 <div className="amenities-section">
-                                    <h3 className="section-title">
-                                        Amenities
-                                    </h3>
+                                    <h3 className="section-title">Amenities</h3>
 
                                     <div className="grid md:grid-cols-2 gap-4">
                                         <ul className="amenities-list">
@@ -182,65 +231,58 @@ export default function RoomDetails() {
                             <div>
                                 <div className="booking-card">
 
-                                    <h2 className="booking-title">
-                                        Book Your Stay
-                                    </h2>
+                                    <h2 className="booking-title">Book Your Stay</h2>
 
                                     <form className="space-y-5">
 
                                         <div>
-                                            <label className="booking-label">
-                                                Check In
-                                            </label>
-
-                                            <input
-                                                type="date"
-                                                className="booking-input"
-                                            />
+                                            <label className="booking-label">Check In</label>
+                                            <input type="date" className="booking-input" />
                                         </div>
 
                                         <div>
-                                            <label className="booking-label">
-                                                Check Out
-                                            </label>
-
-                                            <input
-                                                type="date"
-                                                className="booking-input"
-                                            />
+                                            <label className="booking-label">Check Out</label>
+                                            <input type="date" className="booking-input" />
                                         </div>
 
                                         <div className="grid grid-cols-2 gap-3">
-                                            <input
-                                                type="number"
-                                                placeholder="Adults"
-                                                className="booking-input"
-                                            />
-
-                                            <input
-                                                type="number"
-                                                placeholder="Children"
-                                                className="booking-input"
-                                            />
+                                            <input type="number" placeholder="Adults" className="booking-input" />
+                                            <input type="number" placeholder="Children" className="booking-input" />
                                         </div>
 
-                                        {/* ✅ ONLY CHANGE IS HERE */}
+                                        {/* ROOM COUNT */}
+                                        <div>
+                                            <label className="booking-label">Number of Rooms</label>
+
+                                            <input
+                                                type="number"
+                                                min="1"
+                                                max={available}
+                                                value={roomCount}
+                                                onChange={(e) =>
+                                                    setRoomCount(Number(e.target.value))
+                                                }
+                                                className="booking-input"
+                                            />
+
+                                            <p style={{ fontSize: "12px", color: "gray" }}>
+                                                Available: {available}
+                                            </p>
+                                        </div>
+
                                         <button
                                             type="button"
-                                            onClick={() =>
-                                                navigate("/payment", {
-                                                    state: {
-                                                        roomName: room.title,
-                                                        roomPrice: Number(
-                                                            room.price.replace(/[^0-9]/g, "")
-                                                        ),
-                                                    },
-                                                })
-                                            }
+                                            onClick={handleBookNow}
+                                            disabled={isFull}
                                             className="book-btn"
+                                            style={{
+                                                opacity: isFull ? 0.5 : 1,
+                                                cursor: isFull ? "not-allowed" : "pointer",
+                                            }}
                                         >
-                                            Book Now
+                                            {isFull ? "Fully Booked" : "Book Now"}
                                         </button>
+
                                     </form>
 
                                     <div className="price-box">
