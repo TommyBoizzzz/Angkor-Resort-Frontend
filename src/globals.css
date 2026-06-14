@@ -3,7 +3,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@theme inline {
+:root {
   --font-heading: var(--font-playfair), 'Playfair Display Fallback';
   --font-sans: var(--font-geist-sans), 'Geist Fallback';
   --font-mono: var(--font-geist-mono), 'Geist Mono Fallback';
@@ -118,12 +118,247 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    border-color: var(--border);
+    outline-color: color-mix(in oklch, var(--ring) 50%, transparent);
   }
-  body {
-    @apply bg-background text-foreground;
-  }
+
   html {
-    @apply font-sans;
+    font-family: var(--font-sans);
   }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    margin: 0;
+    min-height: 100vh;
+  }
+}
+/* ================= ADMIN DASHBOARD ================= */
+
+.admin-layout {
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.admin-content {
+  display: flex;
+  padding-top: 4rem;
+}
+
+/* Header */
+.admin-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 4rem;
+  z-index: 50;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in oklch, var(--background) 90%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.admin-header-inner {
+  height: 100%;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.admin-menu-btn,
+.admin-user,
+.admin-menu {
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--foreground);
+  border-radius: var(--radius-lg);
+}
+
+.admin-menu-btn {
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+}
+
+.admin-menu-btn:hover,
+.admin-menu:hover {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.admin-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.admin-user {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+/* Sidebar */
+.admin-sidebar {
+  position: fixed;
+  top: 4rem;
+  left: 0;
+  width: 16.25rem;
+  height: calc(100vh - 4rem);
+  border-right: 1px solid var(--sidebar-border);
+  background: var(--sidebar);
+  color: var(--sidebar-foreground);
+  transform: translateX(-100%);
+  transition: transform 0.25s ease;
+}
+
+.admin-sidebar.sidebar-open {
+  transform: translateX(0);
+}
+
+.admin-sidebar-content {
+  padding: 1rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.admin-menu {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.admin-menu.active {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+/* Main */
+.admin-main {
+  flex: 1;
+  padding: 2rem;
+  margin-left: 0;
+  transition: margin-left 0.25s ease;
+}
+
+.admin-main.sidebar-open {
+  margin-left: 16.25rem;
+}
+
+/* Cards / Tables */
+.admin-card,
+.db-card,
+.db-table-box,
+.db-review-item {
+  background: var(--card);
+  color: var(--card-foreground);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-2xl);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.04);
+}
+
+.db-title {
+  font-family: var(--font-heading);
+  font-size: 1.875rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+.db-card-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(260px, 1fr)
+    );
+
+  gap: 1.5rem;
+}
+
+.db-card {
+  background: var(--card);
+
+  color: var(--card-foreground);
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius-3xl);
+
+  padding: 1.75rem;
+
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 0.03),
+    0 10px 30px rgb(0 0 0 / 0.03);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.db-card:hover {
+  transform: translateY(-3px);
+
+  border-color: var(--ring);
+
+  box-shadow:
+    0 12px 32px rgb(0 0 0 / 0.08);
+}
+
+.db-card h3 {
+  font-size: 0.875rem;
+
+  font-weight: 500;
+
+  color: var(--muted-foreground);
+
+  margin-bottom: 1rem;
+
+  letter-spacing: -0.01em;
+}
+
+.db-card h1 {
+  font-size: 2.5rem;
+
+  font-weight: 700;
+
+  line-height: 1;
+
+  color: var(--foreground);
+}
+
+.db-table-box {
+  overflow: hidden;
+}
+
+.db-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.db-table th,
+.db-table td {
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+.db-table th {
+  color: var(--muted-foreground);
+  font-weight: 500;
+  background: var(--muted);
+}
+
+.db-reviews {
+  display: grid;
+  gap: 1rem;
+}
+
+.db-review-item {
+  padding: 1rem;
 }
