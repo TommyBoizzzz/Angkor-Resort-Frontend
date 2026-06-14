@@ -19,7 +19,6 @@ function Login() {
 
     try {
       const result = await loginUser({ email, password });
-
       const response = result?.data || result;
 
       if (response?.success) {
@@ -63,20 +62,10 @@ function Login() {
         <div className="login-card">
 
           <div className="logo-section">
-
-        <div className="brand-row">
-    <img
-      src={logo}
-      alt="Angkor Resort"
-      className="resort-logo"
-    />
-
-    <h1>Angkor Resort</h1>
-  </div>
-
-  <p className="portal-text">Client Portal</p>
-
-</div>
+            <img src={logo} alt="Angkor Resort" className="resort-logo" />
+            <h1>Angkor Resort</h1>
+            <p className="portal-text">Client Portal</p>
+          </div>
 
           {error && <div className="error">{error}</div>}
 
@@ -101,11 +90,7 @@ function Login() {
               />
             </div>
 
-            <button
-              type="submit"
-              className="login-btn"
-              disabled={loading}
-            >
+            <button type="submit" className="login-btn" disabled={loading}>
               {loading ? "Signing In..." : "Sign In"}
             </button>
           </form>
