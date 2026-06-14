@@ -374,7 +374,7 @@
   padding: 24px;
   
   /* Import and use hotel.jpg here */
-  background-image: url('./asset/hotel.jpg'); 
+  background-image: url('./asset/hotel1.jpg'); 
   background-size: cover;
   background-position: center;
 }
