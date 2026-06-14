@@ -3,7 +3,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@theme inline {
+:root {
   --font-heading: var(--font-playfair), 'Playfair Display Fallback';
   --font-sans: var(--font-geist-sans), 'Geist Fallback';
   --font-mono: var(--font-geist-mono), 'Geist Mono Fallback';
@@ -118,12 +118,523 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    border-color: var(--border);
+    outline-color: color-mix(in oklch, var(--ring) 50%, transparent);
   }
-  body {
-    @apply bg-background text-foreground;
-  }
+
   html {
-    @apply font-sans;
+    font-family: var(--font-sans);
   }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    margin: 0;
+    min-height: 100vh;
+  }
+}
+/* ================= ADMIN DASHBOARD ================= */
+
+.admin-layout {
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.admin-content {
+  display: flex;
+  padding-top: 4rem;
+}
+
+/* Header */
+.admin-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 4rem;
+  z-index: 50;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in oklch, var(--background) 90%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.admin-header-inner {
+  height: 100%;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.admin-menu-btn,
+.admin-user,
+.admin-menu {
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--foreground);
+  border-radius: var(--radius-lg);
+}
+
+.admin-menu-btn {
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+}
+
+.admin-menu-btn:hover,
+.admin-menu:hover {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.admin-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.admin-user {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+/* Sidebar */
+.admin-sidebar {
+  position: fixed;
+  top: 4rem;
+  left: 0;
+  width: 16.25rem;
+  height: calc(100vh - 4rem);
+  border-right: 1px solid var(--sidebar-border);
+  background: var(--sidebar);
+  color: var(--sidebar-foreground);
+  transform: translateX(-100%);
+  transition: transform 0.25s ease;
+}
+
+.admin-sidebar.sidebar-open {
+  transform: translateX(0);
+}
+
+.admin-sidebar-content {
+  padding: 1rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.admin-menu {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.admin-menu.active {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+/* Main */
+.admin-main {
+  flex: 1;
+  padding: 2rem;
+  margin-left: 0;
+  transition: margin-left 0.25s ease;
+}
+
+.admin-main.sidebar-open {
+  margin-left: 16.25rem;
+}
+
+/* Cards / Tables */
+.admin-card,
+.db-card,
+.db-table-box,
+.db-review-item {
+  background: var(--card);
+  color: var(--card-foreground);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-2xl);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.04);
+}
+
+.db-title {
+  font-family: var(--font-heading);
+  font-size: 1.875rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+.db-card-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(260px, 1fr)
+    );
+
+  gap: 1.5rem;
+}
+
+.db-card {
+  background: var(--card);
+
+  color: var(--card-foreground);
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius-3xl);
+
+  padding: 1.75rem;
+
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 0.03),
+    0 10px 30px rgb(0 0 0 / 0.03);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.db-card:hover {
+  transform: translateY(-3px);
+
+  border-color: var(--ring);
+
+  box-shadow:
+    0 12px 32px rgb(0 0 0 / 0.08);
+}
+
+.db-card h3 {
+  font-size: 0.875rem;
+
+  font-weight: 500;
+
+  color: var(--muted-foreground);
+
+  margin-bottom: 1rem;
+
+  letter-spacing: -0.01em;
+}
+
+.db-card h1 {
+  font-size: 2.5rem;
+
+  font-weight: 700;
+
+  line-height: 1;
+
+  color: var(--foreground);
+}
+
+.db-table-box {
+  overflow: hidden;
+}
+
+.db-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.db-table th,
+.db-table td {
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+.db-table th {
+  color: var(--muted-foreground);
+  font-weight: 500;
+  background: var(--muted);
+}
+
+.db-reviews {
+  display: grid;
+  gap: 1rem;
+}
+
+.db-review-item {
+  padding: 1rem;
+}
+/* ===== Profile style ===== */
+/* Example: Using it as a background image on your profile page */
+.profile-page {
+  /* 1. Change min-height to 100vh so it always takes up 100% of the screen height */
+  min-height: 100vh; 
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  
+  /* Import and use hotel.jpg here */
+  background-image: url('./asset/hotel.jpg'); 
+  background-size: cover;
+  background-position: center;
+}
+
+/* ===== Card (shadcn style) ===== */
+.profile-card {
+  width: 100%;
+  max-width: 520px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+/* ===== Header ===== */
+.profile-header {
+  padding: 24px 16px;
+  text-align: center;
+  border-bottom: 1px solid #e2e8f0;
+  background: #ffffff;
+}
+
+/* Avatar (minimal shadcn style) */
+.profile-avatar {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto;
+  border-radius: 999px;
+  background: #0f172a;
+  color: white;
+  font-size: 28px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Name */
+.profile-header h2 {
+  margin-top: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+/* ===== Body ===== */
+.profile-body {
+  padding: 20px;
+}
+
+/* Field group */
+.info-group {
+  margin-bottom: 14px;
+}
+
+.info-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: #64748b;
+  margin-bottom: 6px;
+}
+
+/* Input / Display */
+.info-group h4,
+.info-group input,
+.info-group select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #ffffff;
+  font-size: 14px;
+  color: #0f172a;
+  outline: none;
+  transition: all 0.15s ease;
+}
+
+/* shadcn focus ring */
+.info-group input:focus,
+.info-group select:focus {
+  border-color: #94a3b8;
+  box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.25);
+}
+
+/* ===== Button (shadcn primary style) ===== */
+.button-group {
+  margin-top: 10px;
+}
+
+.button-group button {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #0f172a;
+  background: #0f172a;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.button-group button:hover {
+  background: #111827;
+}
+
+.button-group button:active {
+  transform: scale(0.98);
+}
+
+/* Optional subtle hover card effect */
+.profile-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+/* Ensure the parent can position the button absolutely */
+.profile-page {
+  position: relative; 
+}
+
+/* ===== Minimalist Back Button ===== */
+.back-button {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: rgba(255, 255, 255, 0.9); /* Slight transparency over the hotel image */
+  color: #0f172a;                        /* Matches your theme primary text */
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.15s ease;
+  z-index: 10;                           /* Keeps it above the background image */
+}
+
+.back-button:hover {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);          /* Subtle lift effect */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.back-button:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* TOP BAR */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.left-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* SEARCH */
+.search-input {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  min-width: 220px;
+}
+
+.search-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+/* FILTER */
+.filter-select {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+}
+
+/* ADD BUTTON */
+.add-btn {
+  padding: 10px 18px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+  font-weight: 600;
+
+  box-shadow: 0 10px 25px rgba(34, 197, 94, 0.3);
+}
+
+.add-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* MODAL */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal {
+  width: 420px;
+  padding: 24px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+}
+
+.colorful-modal {
+  background: linear-gradient(145deg, #ffffff, #f1f5f9);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+}
+
+.modal input,
+.modal select {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-save {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: #22c55e;
+  color: white;
+}
+
+.btn-cancel {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: #ef4444;
+  color: white;
 }

@@ -1,33 +1,38 @@
 import { ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const rooms = [
   {
+    id: "standard",
     name: "Standard Room",
-    price: "$80",
+    price: 80,
     image: "/images/room-standard.png",
     description:
       "A cozy retreat with warm wood tones and a garden view.",
   },
   {
+    id: "deluxe",
     name: "Deluxe Room",
-    price: "$120",
+    price: 120,
     image: "/images/room-deluxe.png",
     description:
       "Spacious comfort with a king bed and luxury interior.",
   },
   {
+    id: "suite",
     name: "Suite",
-    price: "$180",
+    price: 180,
     image: "/images/room-suite.png",
     description:
       "Premium accommodation with private terrace.",
   },
 ];
 
-export function Rooms({ onBooking }) {
+export function Rooms() {
+  const navigate = useNavigate();
+
   return (
     <section id="rooms" className="bg-gray-50 py-24">
-
       <div className="mx-auto max-w-7xl px-6">
 
         <div className="max-w-2xl">
@@ -48,10 +53,9 @@ export function Rooms({ onBooking }) {
 
           {rooms.map((room) => (
             <article
-              key={room.name}
+              key={room.id}
               className="overflow-hidden rounded-xl bg-white shadow transition hover:shadow-xl"
             >
-
               <div className="aspect-[4/3] overflow-hidden">
                 <img
                   src={room.image}
@@ -63,15 +67,13 @@ export function Rooms({ onBooking }) {
               <div className="p-6">
 
                 <div className="flex justify-between">
-
                   <h3 className="text-2xl font-semibold">
                     {room.name}
                   </h3>
 
                   <span className="font-bold text-yellow-700">
-                    {room.price}
+                    ${room.price}
                   </span>
-
                 </div>
 
                 <p className="mt-3 text-gray-500">
@@ -79,7 +81,7 @@ export function Rooms({ onBooking }) {
                 </p>
 
                 <button
-                  onClick={onBooking}
+                  onClick={() => navigate(`/roomdetail/${room.id}`)}
                   className="mt-6 flex items-center gap-2 text-yellow-700"
                 >
                   Book Now
@@ -87,14 +89,11 @@ export function Rooms({ onBooking }) {
                 </button>
 
               </div>
-
             </article>
           ))}
 
         </div>
-
       </div>
-
     </section>
   );
 }
