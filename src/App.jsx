@@ -7,8 +7,9 @@ import Register from "./pages/auth/register";
 // User Pages
 import Dashboard from "./pages/dashboard/dashboard";
 import ProfileSetting from "./pages/settings/profile";
-import Booking from "./pages/booking/booking";
+import RoomDetails from "./pages/rooms/roomdetail";
 import Payment from "./pages/booking/payment";
+
 
 // Admin
 import AdminHome from "./admin/pages/dashboard";
@@ -20,7 +21,6 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-
         {/* Public */}
         <Route path="/" element={<Dashboard />} />
         <Route path="/dashboard" element={<Dashboard />} />
@@ -31,10 +31,10 @@ function App() {
 
         {/* User */}
         <Route path="/profile" element={<ProfileSetting />} />
-        <Route path="/booking" element={<Booking />} />
+        <Route path="/roomdetail/:roomId" element={<RoomDetails />} />
         <Route path="/payment" element={<Payment />} />
 
-        {/* Admin Only */}
+        {/* Admin */}
         <Route
           path="/admin"
           element={
@@ -43,7 +43,6 @@ function App() {
             </AdminRoute>
           }
         />
-
       </Routes>
     </BrowserRouter>
   );

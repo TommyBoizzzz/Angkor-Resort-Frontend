@@ -362,3 +362,307 @@
 .db-review-item {
   padding: 1rem;
 }
+/* ===== Profile style ===== */
+/* Example: Using it as a background image on your profile page */
+.profile-page {
+  /* 1. Change min-height to 100vh so it always takes up 100% of the screen height */
+  min-height: 100vh; 
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  
+  /* Import and use hotel.jpg here */
+  background-image: url('./asset/hotel.jpg'); 
+  background-size: cover;
+  background-position: center;
+}
+
+/* ===== Card (shadcn style) ===== */
+.profile-card {
+  width: 100%;
+  max-width: 520px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+/* ===== Header ===== */
+.profile-header {
+  padding: 24px 16px;
+  text-align: center;
+  border-bottom: 1px solid #e2e8f0;
+  background: #ffffff;
+}
+
+/* Avatar (minimal shadcn style) */
+.profile-avatar {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto;
+  border-radius: 999px;
+  background: #0f172a;
+  color: white;
+  font-size: 28px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Name */
+.profile-header h2 {
+  margin-top: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+/* ===== Body ===== */
+.profile-body {
+  padding: 20px;
+}
+
+/* Field group */
+.info-group {
+  margin-bottom: 14px;
+}
+
+.info-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: #64748b;
+  margin-bottom: 6px;
+}
+
+/* Input / Display */
+.info-group h4,
+.info-group input,
+.info-group select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #ffffff;
+  font-size: 14px;
+  color: #0f172a;
+  outline: none;
+  transition: all 0.15s ease;
+}
+
+/* shadcn focus ring */
+.info-group input:focus,
+.info-group select:focus {
+  border-color: #94a3b8;
+  box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.25);
+}
+
+/* ===== Button (shadcn primary style) ===== */
+.button-group {
+  margin-top: 10px;
+}
+
+.button-group button {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #0f172a;
+  background: #0f172a;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.button-group button:hover {
+  background: #111827;
+}
+
+.button-group button:active {
+  transform: scale(0.98);
+}
+
+/* Optional subtle hover card effect */
+.profile-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+/* Ensure the parent can position the button absolutely */
+.profile-page {
+  position: relative; 
+}
+
+/* ===== Minimalist Back Button ===== */
+.back-button {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: rgba(255, 255, 255, 0.9); /* Slight transparency over the hotel image */
+  color: #0f172a;                        /* Matches your theme primary text */
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.15s ease;
+  z-index: 10;                           /* Keeps it above the background image */
+}
+
+.back-button:hover {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);          /* Subtle lift effect */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.back-button:active {
+  transform: translateY(0) scale(0.98);
+}
+
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 9999;
+}
+
+/* ================= MODAL BOX ================= */
+.modal {
+  background: #ffffff;
+
+  width: 380px;
+  padding: 26px;
+
+  border-radius: 14px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.25);
+
+  transform: translateY(0);
+  animation: modalFade 0.25s ease;
+}
+
+/* Smooth animation */
+@keyframes modalFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ================= TITLE ================= */
+.modal h2,
+.modal h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  color: #333;
+}
+
+/* ================= INPUTS ================= */
+.modal input,
+.modal select {
+  padding: 10px 12px;
+
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+
+  font-size: 14px;
+
+  outline: none;
+  transition: 0.2s;
+  background: #fff;
+}
+
+/* Focus effect */
+.modal input:focus,
+.modal select:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+}
+
+/* ================= ROLE DROPDOWN ================= */
+.role-select {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  background: white;
+  font-size: 14px;
+}
+
+/* ================= BUTTON AREA ================= */
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* SAVE BUTTON */
+.btn-save {
+  flex: 1;
+
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+  color: white;
+
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+
+  cursor: pointer;
+  font-weight: 600;
+
+  transition: 0.2s;
+}
+
+.btn-save:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(46, 204, 113, 0.3);
+}
+
+/* CANCEL BUTTON */
+.btn-cancel {
+  flex: 1;
+
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: white;
+
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+
+  cursor: pointer;
+  font-weight: 600;
+
+  transition: 0.2s;
+}
+
+.btn-cancel:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(231, 76, 60, 0.3);
+}
