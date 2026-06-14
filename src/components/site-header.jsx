@@ -94,16 +94,15 @@ className={`text-3xl font-bold transition-colors ${
               {user.username || "User"}
             </button>
 
-            {showProfile && (
-              <div className="absolute right-0 mt-3 flex w-44 flex-col rounded-md bg-white p-3 shadow-lg">
-                <Link to="/profile">My Profile</Link>
-                <Link to="/my-bookings">My Bookings</Link>
-                <Link to="/settings">Settings</Link>
-                <button onClick={onLogout} className="text-left">
-                  Logout
-                </button>
-              </div>
-            )}
+          {showProfile && (
+            <div className="absolute right-0 mt-3 flex w-44 flex-col rounded-md bg-white p-3 shadow-lg">
+              {user?.role === "admin" && ( <Link to="/admin">Go to Admin</Link>)}
+              <Link to="/profile">My Profile</Link>
+              <Link to="/my-bookings">My Bookings</Link>
+              <Link to="/settings">Settings</Link>
+              <button onClick={onLogout} className="text-left">Logout</button>
+            </div>
+          )}
           </div>
         )}
 
