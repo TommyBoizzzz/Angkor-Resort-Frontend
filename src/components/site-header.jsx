@@ -80,7 +80,7 @@ export function SiteHeader({
 
             {showProfile && (
               <div className="absolute right-0 mt-3 flex w-44 flex-col gap-2 rounded-md bg-white p-3 text-black shadow-lg">
-                {user?.role === "admin" && (
+                {user?.role === "ADMIN" && (
                   <Link to="/admin">Go to Admin</Link>
                 )}
                 <Link to="/profile">My Profile</Link>

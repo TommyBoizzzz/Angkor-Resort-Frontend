@@ -30,7 +30,7 @@ function Login() {
           role: user.role, phoneNumber: user.phoneNumber, dateOfBirth: user.dateOfBirth,
         }));
 
-        navigate(user.role === "admin" ? "/admin" : "/");
+        navigate(user.role === "ADMIN" ? "/admin" : "/");
       } else {
         setError(response?.message || "Login failed");
       }

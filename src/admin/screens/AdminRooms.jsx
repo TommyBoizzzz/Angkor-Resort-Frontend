@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {
   getAllRooms,
   createRoom,
-} from "../../services/roomService";
+} from "../Service/RoomService";
 
 function AdminRooms() {
   const [rooms, setRooms] = useState([]);
@@ -128,17 +128,10 @@ function AdminRooms() {
           </select>
         </div>
 
-        <button
-          onClick={() => setShowDialog(true)}
-          style={{
-            padding: "10px 18px",
-            border: "none",
-            borderRadius: "8px",
-            cursor: "pointer",
-          }}
-        >
-          ➕ Add Room
+        <button className="add-btn" onClick={() => setShowDialog(true)}>
+          + Add Room
         </button>
+
       </div>
 
       {/* Table */}
@@ -179,94 +172,60 @@ function AdminRooms() {
 
       {/* Add Room Dialog */}
       {showDialog && (
-        <div
-          style={{
-            position: "fixed",
-            inset: 0,
-            background: "rgba(0,0,0,.5)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: 999,
-          }}
-        >
-          <div
-            style={{
-              background: "#fff",
-              width: "400px",
-              maxWidth: "90%",
-              borderRadius: "10px",
-              padding: "20px",
-            }}
-          >
-            <h2>Add Room</h2>
+        <div className="modal-overlay">
+          <div className="modal colorful-modal">
 
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "12px",
-                marginTop: "15px",
-              }}
-            >
-              <input
-                type="text"
-                placeholder="Room Number"
-                value={roomData.roomNumber}
-                onChange={(e) =>
-                  setRoomData({
-                    ...roomData,
-                    roomNumber: e.target.value,
-                  })
-                }
-                style={{ padding: "10px" }}
-              />
+            <h2>🏠 Add Room</h2>
 
-              <input
-                type="text"
-                placeholder="Room Type"
-                value={roomData.roomType}
-                onChange={(e) =>
-                  setRoomData({
-                    ...roomData,
-                    roomType: e.target.value,
-                  })
-                }
-                style={{ padding: "10px" }}
-              />
+            <input
+              type="text"
+              placeholder="Room Number"
+              value={roomData.roomNumber}
+              onChange={(e) =>
+                setRoomData({
+                  ...roomData,
+                  roomNumber: e.target.value,
+                })
+              }
+            />
 
-              <input
-                type="number"
-                placeholder="Price"
-                value={roomData.price}
-                onChange={(e) =>
-                  setRoomData({
-                    ...roomData,
-                    price: e.target.value,
-                  })
-                }
-                style={{ padding: "10px" }}
-              />
-            </div>
+            <input
+              type="text"
+              placeholder="Room Type"
+              value={roomData.roomType}
+              onChange={(e) =>
+                setRoomData({
+                  ...roomData,
+                  roomType: e.target.value,
+                })
+              }
+            />
 
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "flex-end",
-                gap: "10px",
-                marginTop: "20px",
-              }}
-            >
+            <input
+              type="number"
+              placeholder="Price"
+              value={roomData.price}
+              onChange={(e) =>
+                setRoomData({
+                  ...roomData,
+                  price: e.target.value,
+                })
+              }
+            />
+
+            <div className="modal-actions">
               <button
+                className="btn-cancel"
                 onClick={() => setShowDialog(false)}
               >
                 Cancel
               </button>
 
-              <button onClick={handleSave}>
+              <button className="btn-save" onClick={handleSave}>
                 Save
               </button>
             </div>
+
           </div>
         </div>
       )}
