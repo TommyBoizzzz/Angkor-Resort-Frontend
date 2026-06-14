@@ -8,7 +8,6 @@ import Register from "./pages/auth/register";
 import Dashboard from "./pages/dashboard/dashboard";
 import ProfileSetting from "./pages/settings/profile";
 import RoomDetails from "./pages/rooms/roomdetail";
-import Booking from "./pages/booking/booking";
 import Payment from "./pages/booking/payment";
 
 
@@ -33,7 +32,6 @@ function App() {
         {/* User */}
         <Route path="/profile" element={<ProfileSetting />} />
         <Route path="/roomdetail/:roomId" element={<RoomDetails />} />
-        <Route path="/booking" element={<Booking />} />
         <Route path="/payment" element={<Payment />} />
 
         {/* Admin */}

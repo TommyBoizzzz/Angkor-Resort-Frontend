@@ -527,3 +527,142 @@
 .back-button:active {
   transform: translateY(0) scale(0.98);
 }
+
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 9999;
+}
+
+/* ================= MODAL BOX ================= */
+.modal {
+  background: #ffffff;
+
+  width: 380px;
+  padding: 26px;
+
+  border-radius: 14px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.25);
+
+  transform: translateY(0);
+  animation: modalFade 0.25s ease;
+}
+
+/* Smooth animation */
+@keyframes modalFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ================= TITLE ================= */
+.modal h2,
+.modal h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  color: #333;
+}
+
+/* ================= INPUTS ================= */
+.modal input,
+.modal select {
+  padding: 10px 12px;
+
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+
+  font-size: 14px;
+
+  outline: none;
+  transition: 0.2s;
+  background: #fff;
+}
+
+/* Focus effect */
+.modal input:focus,
+.modal select:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+}
+
+/* ================= ROLE DROPDOWN ================= */
+.role-select {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  background: white;
+  font-size: 14px;
+}
+
+/* ================= BUTTON AREA ================= */
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* SAVE BUTTON */
+.btn-save {
+  flex: 1;
+
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+  color: white;
+
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+
+  cursor: pointer;
+  font-weight: 600;
+
+  transition: 0.2s;
+}
+
+.btn-save:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(46, 204, 113, 0.3);
+}
+
+/* CANCEL BUTTON */
+.btn-cancel {
+  flex: 1;
+
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: white;
+
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+
+  cursor: pointer;
+  font-weight: 600;
+
+  transition: 0.2s;
+}
+
+.btn-cancel:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(231, 76, 60, 0.3);
+}
