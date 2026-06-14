@@ -2,6 +2,8 @@ function AdminHeader({
   sidebarVisible,
   setSidebarVisible,
 }) {
+  const user = JSON.parse(localStorage.getItem("user"));
+
   return (
     <header className="admin-header">
 
@@ -10,9 +12,7 @@ function AdminHeader({
         <div className="admin-header-left">
 
           <button
-            onClick={() =>
-              setSidebarVisible(!sidebarVisible)
-            }
+            onClick={() => setSidebarVisible(!sidebarVisible)}
             className="admin-menu-btn"
           >
             ☰
@@ -25,7 +25,7 @@ function AdminHeader({
         </div>
 
         <div className="admin-user">
-          Admin
+          {user?.username || "Admin"}
         </div>
 
       </div>
