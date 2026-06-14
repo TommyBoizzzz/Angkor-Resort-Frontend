@@ -1,4 +1,4 @@
-import BASE_URL from "../config/global";
+import BASE_URL from "../../config/global";
 
 const API_URL = `${BASE_URL}/rooms`;
 

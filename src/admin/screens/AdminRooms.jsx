@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {
   getAllRooms,
   createRoom,
-} from "../../services/roomService";
+} from "../Service/RoomService";
 
 function AdminRooms() {
   const [rooms, setRooms] = useState([]);

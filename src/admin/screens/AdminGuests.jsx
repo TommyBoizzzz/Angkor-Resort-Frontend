@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-
-const API_URL = "http://localhost:8080/api/users";
+import {
+  getAllUsers,
+  createUser,
+  updateUser,
+  deleteUser,
+} from "../Service/UserService";
 
 function AdminGuests() {
   const [users, setUsers] = useState([]);
@@ -30,59 +33,81 @@ function AdminGuests() {
     dateOfBirth: "",
   });
 
+  // =========================
+  // LOAD USERS
+  // =========================
   useEffect(() => {
     fetchUsers();
   }, []);
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get(API_URL);
-      setUsers(res.data);
+      const data = await getAllUsers();
+      setUsers(data);
     } catch (err) {
       console.log(err);
     }
   };
 
-  // ADD
+  // =========================
+  // ADD USER
+  // =========================
   const handleAdd = async () => {
     try {
-      await axios.post(API_URL, newUser);
+      await createUser(newUser);
       setShowAdd(false);
+      setNewUser({
+        username: "",
+        email: "",
+        password: "",
+        role: "GUEST",
+        phoneNumber: "",
+        dateOfBirth: "",
+      });
       fetchUsers();
     } catch (err) {
-      alert("Add failed");
+      alert(err.message);
     }
   };
 
-  // EDIT
+  // =========================
+  // OPEN EDIT
+  // =========================
   const openEdit = (user) => {
     setEditUser(user);
     setShowEdit(true);
   };
 
+  // =========================
+  // UPDATE USER
+  // =========================
   const handleUpdate = async () => {
     try {
-      await axios.put(`${API_URL}/${editUser.id}`, editUser);
+      await updateUser(editUser.id, editUser);
       setShowEdit(false);
       fetchUsers();
     } catch (err) {
-      alert("Update failed");
+      alert(err.message);
     }
   };
 
-  // DELETE
+  // =========================
+  // DELETE USER
+  // =========================
   const handleDelete = async (id) => {
     if (!window.confirm("Delete user?")) return;
 
     try {
-      await axios.delete(`${API_URL}/${id}`);
+      await deleteUser(id);
       fetchUsers();
     } catch (err) {
-      alert("Delete failed");
+      alert(err.message);
     }
   };
 
+  // =========================
   // FILTER
+  // =========================
   const filteredUsers = users.filter((u) => {
     const matchSearch =
       u.username?.toLowerCase().includes(search.toLowerCase()) ||
@@ -153,7 +178,7 @@ function AdminGuests() {
         </table>
       </div>
 
-      {/* ================= ADD MODAL ================= */}
+      {/* ADD MODAL */}
       {showAdd && (
         <div className="modal-overlay">
           <div className="modal colorful-modal">
@@ -211,18 +236,14 @@ function AdminGuests() {
             </select>
 
             <div className="modal-actions">
-              <button className="btn-cancel" onClick={() => setShowAdd(false)}>
-                Cancel
-              </button>
-              <button className="btn-save" onClick={handleAdd}>
-                Save
-              </button>
+              <button onClick={() => setShowAdd(false)}>Cancel</button>
+              <button onClick={handleAdd}>Save</button>
             </div>
           </div>
         </div>
       )}
 
-      {/* ================= EDIT MODAL ================= */}
+      {/* EDIT MODAL */}
       {showEdit && (
         <div className="modal-overlay">
           <div className="modal colorful-modal">
@@ -268,12 +289,8 @@ function AdminGuests() {
             </select>
 
             <div className="modal-actions">
-              <button className="btn-save" onClick={handleUpdate}>
-                Update
-              </button>
-              <button className="btn-cancel" onClick={() => setShowEdit(false)}>
-                Cancel
-              </button>
+              <button onClick={handleUpdate}>Update</button>
+              <button onClick={() => setShowEdit(false)}>Cancel</button>
             </div>
           </div>
         </div>
