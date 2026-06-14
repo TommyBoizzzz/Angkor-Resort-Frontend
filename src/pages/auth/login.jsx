@@ -23,28 +23,14 @@ function Login() {
 
       if (response?.success) {
         const user = response.user;
+        if (!user) { setError("Invalid user data from server"); return; }
 
-        if (!user) {
-          setError("Invalid user data from server");
-          return;
-        }
+        localStorage.setItem("user", JSON.stringify({
+          id: user.id, username: user.username, email: user.email,
+          role: user.role, phoneNumber: user.phoneNumber, dateOfBirth: user.dateOfBirth,
+        }));
 
-        const userData = {
-          id: user.id,
-          username: user.username,
-          email: user.email,
-          role: user.role,
-          phoneNumber: user.phoneNumber,
-          dateOfBirth: user.dateOfBirth,
-        };
-
-        localStorage.setItem("user", JSON.stringify(userData));
-
-        if (user.role === "admin") {
-          navigate("/admin");
-        } else {
-          navigate("/");
-        }
+        navigate(user.role === "admin" ? "/admin" : "/");
       } else {
         setError(response?.message || "Login failed");
       }
@@ -58,9 +44,10 @@ function Login() {
 
   return (
     <div className="login-container">
+      <button className="home-btn" onClick={() => navigate("/")}>← Home</button>
+
       <div className="overlay">
         <div className="login-card">
-
           <div className="logo-section">
             <img src={logo} alt="Angkor Resort" className="resort-logo" />
             <h1>Angkor Resort</h1>
@@ -71,25 +58,13 @@ function Login() {
 
           <form onSubmit={handleLogin} className="form">
             <div className="input-group">
-              <input
-                type="email"
-                placeholder="Email Address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
+              <input type="email" placeholder="Email Address" value={email}
+                onChange={(e) => setEmail(e.target.value)} required />
             </div>
-
             <div className="input-group">
-              <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+              <input type="password" placeholder="Password" value={password}
+                onChange={(e) => setPassword(e.target.value)} required />
             </div>
-
             <button type="submit" className="login-btn" disabled={loading}>
               {loading ? "Signing In..." : "Sign In"}
             </button>
@@ -99,7 +74,6 @@ function Login() {
             <span>Don't have an account?</span>
             <Link to="/register">Create Account</Link>
           </div>
-
         </div>
       </div>
     </div>

@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { registerUser } from "../../services/authService";
 import { useNavigate, Link } from "react-router-dom";
@@ -26,7 +25,6 @@ function Register() {
 
     try {
       const result = await registerUser({ email, password });
-
       const response = result?.data || result;
 
       if (response?.success) {
@@ -45,62 +43,36 @@ function Register() {
 
   return (
     <div className="register-container">
+      <button className="home-btn" onClick={() => navigate("/")}>← Home</button>
+
       <div className="overlay">
         <div className="register-card">
-
           <div className="logo-section">
-            <img
-              src={logo}
-              alt="Angkor Resort"
-              className="resort-logo"
-            />
-
+            <img src={logo} alt="Angkor Resort" className="resort-logo" />
             <h1>Angkor Resort</h1>
-
-            <p className="portal-text">
-              CREATE YOUR ACCOUNT
-            </p>
+            <p className="portal-text">CREATE YOUR ACCOUNT</p>
           </div>
 
           {error && <div className="error">{error}</div>}
 
           <form onSubmit={handleRegister} className="form">
-
             <div className="input-group">
-              <input
-                type="email"
-                placeholder="Email Address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
+              <input type="email" placeholder="Email Address" value={email}
+                onChange={(e) => setEmail(e.target.value)} required />
             </div>
-
             <div className="input-group">
-              <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+              <input type="password" placeholder="Password" value={password}
+                onChange={(e) => setPassword(e.target.value)} required />
             </div>
-
-            <button
-              type="submit"
-              className="register-btn"
-              disabled={loading}
-            >
+            <button type="submit" className="register-btn" disabled={loading}>
               {loading ? "Creating..." : "Register"}
             </button>
-
           </form>
 
           <p className="bottom-text">
             Already have an account?
             <Link to="/login"> Login</Link>
           </p>
-
         </div>
       </div>
     </div>
