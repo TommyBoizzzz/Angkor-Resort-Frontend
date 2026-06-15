@@ -638,3 +638,25 @@
   background: #ef4444;
   color: white;
 }
+
+
+.admin-user-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.admin-home-link {
+  text-decoration: none;
+  color: #2563eb;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.admin-home-link:hover {
+  color: #1d4ed8;
+}
+
+.admin-user {
+  font-weight: 600;
+}
