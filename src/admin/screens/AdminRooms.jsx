@@ -250,10 +250,9 @@ function AdminRooms() {
               }
             >
               <option value="">Select Room Type</option>
-              <option value="Single">Single</option>
-              <option value="Double">Double</option>
-              <option value="Deluxe">Deluxe</option>
-              <option value="Suite">Suite</option>
+              <option value="STANDARD">STANDARD</option>
+              <option value="DELUXE">DELUXE</option>
+              <option value="SUITE">SUITE</option>
             </select>
 
             <input
@@ -277,9 +276,9 @@ function AdminRooms() {
                 })
               }
             >
-              <option value="AVAILABLE">Available</option>
-              <option value="BOOKED">Booked</option>
-              <option value="MAINTENANCE">Maintenance</option>
+              <option value="AVAILABLE">AVAILABLE</option>
+              <option value="BOOKED">BOOKED</option>
+              <option value="MAINTENANCE">MAINTENANCE</option>
             </select>
 
             <div className="modal-actions">
