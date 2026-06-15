@@ -4,6 +4,9 @@ import { useEffect, useState } from "react";
 import { SiteHeader } from "../../components/site-header";
 import { SiteFooter } from "../../components/site-footer";
 
+import { getAvailableRooms } from "../../services/RoomService";
+import { createBooking } from "../../services/bookingService";
+
 import "./css/roomdetail.css";
 
 export default function RoomDetails() {
@@ -12,18 +15,42 @@ export default function RoomDetails() {
 
     const [showProfile, setShowProfile] = useState(false);
     const [roomCount, setRoomCount] = useState(1);
+    const [available, setAvailable] = useState(0);
 
     const user = JSON.parse(localStorage.getItem("user") || "null");
 
     useEffect(() => {
         window.scrollTo(0, 0);
+        loadAvailableRooms();
     }, [roomId]);
+
+    const loadAvailableRooms = async () => {
+        const roomTypeMap = {
+            standard: "STANDARD",
+            deluxe: "DELUXE",
+            suite: "SUITE",
+        };
+
+        const roomType = roomTypeMap[roomId];
+
+        if (!roomType) {
+            console.warn("Invalid roomId:", roomId);
+            setAvailable(0);
+            return;
+        }
+
+        const count = await getAvailableRooms(roomType);
+        setAvailable(count);
+    };
 
     const handleLogout = () => {
         localStorage.removeItem("user");
         navigate("/");
     };
 
+    // =========================
+    // STATIC ROOM DATA
+    // =========================
     const rooms = {
         standard: {
             title: "STANDARD ROOM",
@@ -31,15 +58,14 @@ export default function RoomDetails() {
             images: [
                 "/images/room-standard.png",
                 "/images/room-standard.png",
-                "/images/room-standard.png"
+                "/images/room-standard.png",
             ],
-            description: "A cozy retreat with warm wood tones and a peaceful garden view.",
+            description:
+                "A cozy retreat with warm wood tones and a peaceful garden view.",
             guests: "2 Guests",
             beds: "1 Queen Bed",
             size: "30 m²",
             view: "Garden View",
-            total: 10,
-            booked: 7,
         },
 
         deluxe: {
@@ -47,16 +73,15 @@ export default function RoomDetails() {
             price: "$120 / Night",
             images: [
                 "/images/room-deluxe.png",
-                "/images/room-standard.png",
-                "/images/room-standard.png"
+                "/images/room-deluxe.png",
+                "/images/room-deluxe.png",
             ],
-            description: "Spacious comfort with a king bed, modern design, and premium amenities.",
+            description:
+                "Spacious comfort with a king bed, modern design, and premium amenities.",
             guests: "2 Guests",
             beds: "1 King Bed",
             size: "45 m²",
             view: "Pool View",
-            total: 8,
-            booked: 8,
         },
 
         suite: {
@@ -64,33 +89,15 @@ export default function RoomDetails() {
             price: "$180 / Night",
             images: [
                 "/images/room-suite.png",
-                "/images/room-standard.png",
-                "/images/room-standard.png"
+                "/images/room-suite.png",
+                "/images/room-suite.png",
             ],
-            description: "Premium accommodation featuring luxury furnishings and a private terrace.",
+            description:
+                "Premium accommodation featuring luxury furnishings and a private terrace.",
             guests: "3 Guests",
             beds: "1 King Bed",
             size: "55 m²",
             view: "Resort View",
-            total: 5,
-            booked: 2,
-        },
-
-        "family-suite": {
-            title: "FAMILY SUITE",
-            price: "$250 / Night",
-            images: [
-                "/images/room-suite.png",
-                "/images/room-standard.png",
-                "/images/room-standard.png"
-            ],
-            description: "Perfect for families with two bedrooms, a living area, and beautiful garden views.",
-            guests: "6 Guests",
-            beds: "1 King Bed + 2 Single Beds",
-            size: "65 m²",
-            view: "Garden View",
-            total: 3,
-            booked: 1,
         },
     };
 
@@ -114,7 +121,10 @@ export default function RoomDetails() {
                         The room you are looking for does not exist.
                     </p>
 
-                    <button onClick={() => navigate("/")} className="mt-6 book-btn">
+                    <button
+                        onClick={() => navigate("/")}
+                        className="mt-6 book-btn"
+                    >
                         Back Home
                     </button>
                 </main>
@@ -124,12 +134,64 @@ export default function RoomDetails() {
         );
     }
 
-    const available = room.total - room.booked;
     const isFull = available <= 0;
+    const isButtonDisabled = isFull || available <= 0;
 
-    const handleBookNow = () => {
+    // =========================
+    // INPUT HELPERS
+    // =========================
+    const getCheckIn = () =>
+        document.querySelectorAll(".booking-input")[0]?.value;
+
+    const getCheckOut = () =>
+        document.querySelectorAll(".booking-input")[1]?.value;
+
+    const getNights = (checkIn, checkOut) => {
+        if (!checkIn || !checkOut) return 0;
+
+        const start = new Date(checkIn);
+        const end = new Date(checkOut);
+
+        const diff = end.getTime() - start.getTime();
+        const nights = diff / (1000 * 60 * 60 * 24);
+
+        return nights > 0 ? nights : 0;
+    };
+
+    // =========================
+    // BOOK NOW
+    // =========================
+    const handleBookNow = async () => {
+        const currentUser = JSON.parse(localStorage.getItem("user") || "null");
+
+        const checkInDate = getCheckIn();
+        const checkOutDate = getCheckOut();
+
+        if (!currentUser) {
+            alert("Please login first.");
+            navigate("/login");
+            return;
+        }
+
+        if (!checkInDate || !checkOutDate) {
+            alert("⚠️ Please select check-in and check-out dates.");
+            return;
+        }
+
+        const nights = getNights(checkInDate, checkOutDate);
+
+        if (nights <= 0) {
+            alert("⚠️ Check-out must be after check-in date.");
+            return;
+        }
+
         if (isFull) {
             alert("❌ This room is fully booked.");
+            return;
+        }
+
+        if (roomCount < 1) {
+            alert("❌ Please select at least 1 room.");
             return;
         }
 
@@ -138,22 +200,40 @@ export default function RoomDetails() {
             return;
         }
 
-        if (roomCount <= 0) {
-            alert("❌ Please select at least 1 room.");
-            return;
-        }
+        try {
+            const basePrice = Number(room.price.replace(/[^0-9]/g, ""));
+            const totalPrice = basePrice * nights * roomCount;
 
-        navigate("/payment", {
-            state: {
-                roomName: room.title,
-                roomPrice: Number(room.price.replace(/[^0-9]/g, "")),
+            const data = await createBooking({
+                roomType: roomId.toUpperCase(),
+                userId: currentUser.id,
                 roomCount,
-                totalPrice:
-                    Number(room.price.replace(/[^0-9]/g, "")) * roomCount,
-            },
-        });
+                checkInDate,
+                checkOutDate,
+            });
+
+            navigate("/payment", {
+                state: {
+                    bookingId: data.bookingId,
+                    rooms: data.rooms,
+                    roomName: room.title,
+                    roomPrice: basePrice,
+                    roomCount,
+                    nights,
+                    checkInDate,
+                    checkOutDate,
+                    totalPrice,
+                },
+            });
+        } catch (err) {
+            console.error("Booking Error:", err);
+            alert(err.message || "Server error while booking");
+        }
     };
 
+    // =========================
+    // UI
+    // =========================
     return (
         <>
             <SiteHeader
@@ -171,12 +251,10 @@ export default function RoomDetails() {
 
                         <div className="grid lg:grid-cols-3 gap-10">
 
-                            {/* LEFT SIDE */}
+                            {/* LEFT */}
                             <div className="lg:col-span-2">
 
-                                {/* ✅ SCROLL IMAGE GALLERY */}
                                 <div className="image-gallery-scroll">
-
                                     <div className="scroll-container">
                                         {room.images.map((img, index) => (
                                             <img
@@ -187,12 +265,13 @@ export default function RoomDetails() {
                                             />
                                         ))}
                                     </div>
-
                                 </div>
 
                                 <h1 className="room-title">{room.title}</h1>
 
-                                <p className="room-description">{room.description}</p>
+                                <p className="room-description">
+                                    {room.description}
+                                </p>
 
                                 <div className="room-details-section">
                                     <h3 className="section-title">Details</h3>
@@ -204,55 +283,25 @@ export default function RoomDetails() {
                                         <p className="detail-item">{room.view}</p>
                                     </div>
                                 </div>
-
-                                <div className="amenities-section">
-                                    <h3 className="section-title">Amenities</h3>
-
-                                    <div className="grid md:grid-cols-2 gap-4">
-                                        <ul className="amenities-list">
-                                            <li>• Air Conditioning</li>
-                                            <li>• Free Wi-Fi</li>
-                                            <li>• Smart TV</li>
-                                            <li>• Mini Bar</li>
-                                        </ul>
-
-                                        <ul className="amenities-list">
-                                            <li>• Swimming Pool Access</li>
-                                            <li>• Complimentary Breakfast</li>
-                                            <li>• Hair Dryer</li>
-                                            <li>• Towels</li>
-                                        </ul>
-                                    </div>
-                                </div>
-
                             </div>
 
-                            {/* RIGHT SIDE */}
+                            {/* RIGHT */}
                             <div>
                                 <div className="booking-card">
 
-                                    <h2 className="booking-title">Book Your Stay</h2>
+                                    <h2 className="booking-title">
+                                        Book Your Stay
+                                    </h2>
 
                                     <form className="space-y-5">
 
-                                        <div>
-                                            <label className="booking-label">Check In</label>
-                                            <input type="date" className="booking-input" />
-                                        </div>
+                                        <input type="date" className="booking-input" />
+                                        <input type="date" className="booking-input" />
 
                                         <div>
-                                            <label className="booking-label">Check Out</label>
-                                            <input type="date" className="booking-input" />
-                                        </div>
-
-                                        <div className="grid grid-cols-2 gap-3">
-                                            <input type="number" placeholder="Adults" className="booking-input" />
-                                            <input type="number" placeholder="Children" className="booking-input" />
-                                        </div>
-
-                                        {/* ROOM COUNT */}
-                                        <div>
-                                            <label className="booking-label">Number of Rooms</label>
+                                            <label className="booking-label">
+                                                Number of Rooms
+                                            </label>
 
                                             <input
                                                 type="number"
@@ -263,22 +312,25 @@ export default function RoomDetails() {
                                                     setRoomCount(Number(e.target.value))
                                                 }
                                                 className="booking-input"
+                                                disabled={isFull}
                                             />
 
                                             <p style={{ fontSize: "12px", color: "gray" }}>
                                                 Available: {available}
                                             </p>
+
+                                            {isFull && (
+                                                <p style={{ color: "red", fontSize: "12px" }}>
+                                                    ⚠️ This room is fully booked
+                                                </p>
+                                            )}
                                         </div>
 
                                         <button
                                             type="button"
                                             onClick={handleBookNow}
-                                            disabled={isFull}
-                                            className="book-btn"
-                                            style={{
-                                                opacity: isFull ? 0.5 : 1,
-                                                cursor: isFull ? "not-allowed" : "pointer",
-                                            }}
+                                            className={`book-btn ${isButtonDisabled ? "disabled-btn" : ""}`}
+                                            disabled={isButtonDisabled}
                                         >
                                             {isFull ? "Fully Booked" : "Book Now"}
                                         </button>
@@ -292,11 +344,11 @@ export default function RoomDetails() {
                                     <Link to="/" className="back-link">
                                         Back to Home
                                     </Link>
+
                                 </div>
                             </div>
 
                         </div>
-
                     </div>
                 </div>
             </main>

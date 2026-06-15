@@ -11,7 +11,6 @@ function AdminSidebar({
   sidebarVisible,
   page,
   setPage,
-  handleLogout,
 }) {
   return (
     <aside
@@ -35,13 +34,6 @@ function AdminSidebar({
             {label}
           </button>
         ))}
-
-        <button
-          onClick={handleLogout}
-          className="admin-menu"
-        >
-          🚪 Logout
-        </button>
       </div>
     </aside>
   );

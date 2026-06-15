@@ -253,7 +253,11 @@
 /* Cards / Tables */
 .admin-card,
 .db-card,
-.db-table-box,
+.db-table-box {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
 .db-review-item {
   background: var(--card);
   color: var(--card-foreground);
@@ -345,7 +349,7 @@
 .db-table td {
   padding: 0.875rem 1rem;
   border-bottom: 1px solid var(--border);
-  text-align: left;
+  text-align: center;
 }
 
 .db-table th {
@@ -637,4 +641,53 @@
   border-radius: 10px;
   background: #ef4444;
   color: white;
+}
+
+
+.admin-user-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.admin-home-link {
+  text-decoration: none;
+  color: #2563eb;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.admin-home-link:hover {
+  color: #1d4ed8;
+}
+
+.admin-user {
+  font-weight: 600;
+}
+
+
+/* profile user */
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;   /* ✅ space above buttons */
+  padding-bottom: 10px; /* ✅ space below buttons */
+}
+
+.button-group button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Optional styling */
+.button-group button:first-child {
+  background: #2563eb;
+  color: white;
+}
+
+.button-group button:last-child {
+  background: #e5e7eb;
+  color: #111;
 }

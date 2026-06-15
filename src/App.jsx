@@ -8,7 +8,7 @@ import Register from "./pages/auth/register";
 import Dashboard from "./pages/dashboard/dashboard";
 import ProfileSetting from "./pages/settings/profile";
 import RoomDetails from "./pages/rooms/roomdetail";
-import Payment from "./pages/booking/payment";
+import Payment from "./pages/rooms/payment";
 
 
 // Admin

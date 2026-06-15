@@ -1,82 +1,82 @@
+// service/RoomService.js
 import BASE_URL from "../../config/global";
 
-const API_URL = `${BASE_URL}/rooms`;
+const API = `${BASE_URL}/rooms`;
 
 // =========================
 // GET ALL ROOMS
 // =========================
 export const getAllRooms = async () => {
-  const response = await fetch(API_URL);
+  try {
+    const res = await fetch(API);
 
-  if (!response.ok) {
-    throw new Error("Get rooms request failed");
+    if (!res.ok) throw new Error("Failed to fetch rooms");
+
+    return await res.json();
+  } catch (error) {
+    console.error("getAllRooms error:", error);
+    return [];
   }
-
-  return response.json();
-};
-
-// =========================
-// GET ROOM BY ID
-// =========================
-export const getRoomById = async (id) => {
-  const response = await fetch(`${API_URL}/${id}`);
-
-  if (!response.ok) {
-    throw new Error("Get room request failed");
-  }
-
-  return response.json();
 };
 
 // =========================
 // CREATE ROOM
 // =========================
-export const createRoom = async (roomData) => {
-  const response = await fetch(API_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(roomData),
-  });
+export const createRoom = async (data) => {
+  try {
+    const res = await fetch(API, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        roomNumber: data.roomNumber,
+        roomType: data.roomType,
+        price: Number(data.price),
+        status: data.status || "AVAILABLE",
+      }),
+    });
 
-  if (!response.ok) {
-    throw new Error("Create room request failed");
+    return await res.json();
+  } catch (error) {
+    console.error("createRoom error:", error);
+    return { success: false, message: "Create failed" };
   }
-
-  return response.json();
 };
 
 // =========================
-// UPDATE ROOM
+// UPDATE ROOM (FIXED)
 // =========================
-export const updateRoom = async (id, roomData) => {
-  const response = await fetch(`${API_URL}/${id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(roomData),
-  });
+export const updateRoom = async (id, data) => {
+  try {
+    const res = await fetch(`${API}/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        roomNumber: data.roomNumber,
+        roomType: data.roomType,
+        price: Number(data.price),
+        status: data.status,
+      }),
+    });
 
-  if (!response.ok) {
-    throw new Error("Update room request failed");
+    return await res.json();
+  } catch (error) {
+    console.error("updateRoom error:", error);
+    return { success: false, message: "Update failed" };
   }
-
-  return response.json();
 };
 
 // =========================
 // DELETE ROOM
 // =========================
 export const deleteRoom = async (id) => {
-  const response = await fetch(`${API_URL}/${id}`, {
-    method: "DELETE",
-  });
+  try {
+    const res = await fetch(`${API}/${id}`, {
+      method: "DELETE",
+    });
 
-  if (!response.ok) {
-    throw new Error("Delete room request failed");
+    return await res.json();
+  } catch (error) {
+    console.error("deleteRoom error:", error);
+    return { success: false, message: "Delete failed" };
   }
-
-  return response.json();
 };
