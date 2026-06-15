@@ -1,4 +1,6 @@
-const BASE_URL = "http://localhost:8080/api/rooms";
+import BASE_URL from "../config/global";
+
+const API_URL = `${BASE_URL}/rooms`;
 
 // =========================
 // GET AVAILABLE ROOMS BY TYPE
@@ -6,7 +8,7 @@ const BASE_URL = "http://localhost:8080/api/rooms";
 export const getAvailableRooms = async (roomType) => {
     try {
         const response = await fetch(
-            `${BASE_URL}/available/${roomType}`
+            `${API_URL}/available/${roomType}`
         );
 
         const data = await response.text();
@@ -19,11 +21,11 @@ export const getAvailableRooms = async (roomType) => {
 };
 
 // =========================
-// OPTIONAL: GET ALL ROOMS
+// GET ALL ROOMS
 // =========================
 export const getAllRooms = async () => {
     try {
-        const response = await fetch(BASE_URL);
+        const response = await fetch(API_URL);
         return await response.json();
     } catch (error) {
         console.error("getAllRooms ERROR:", error);
@@ -32,11 +34,11 @@ export const getAllRooms = async () => {
 };
 
 // =========================
-// OPTIONAL: GET ROOM BY ID
+// GET ROOM BY ID
 // =========================
 export const getRoomById = async (id) => {
     try {
-        const response = await fetch(`${BASE_URL}/${id}`);
+        const response = await fetch(`${API_URL}/${id}`);
         return await response.json();
     } catch (error) {
         console.error("getRoomById ERROR:", error);

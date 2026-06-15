@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { SiteHeader } from "../../components/site-header";
 import { SiteFooter } from "../../components/site-footer";
 
-import { getAvailableRooms } from "../../services/RoomService";
+import { getAvailableRooms } from "../../services/roomService";
 
 import "./css/roomdetail.css";
 
@@ -18,9 +18,6 @@ export default function RoomDetails() {
 
     const user = JSON.parse(localStorage.getItem("user") || "null");
 
-    // =========================
-    // LOAD AVAILABLE ROOMS
-    // =========================
     useEffect(() => {
         window.scrollTo(0, 0);
         loadAvailableRooms();
@@ -105,9 +102,6 @@ export default function RoomDetails() {
 
     const room = rooms[roomId];
 
-    // =========================
-    // NOT FOUND
-    // =========================
     if (!room) {
         return (
             <>
@@ -142,16 +136,50 @@ export default function RoomDetails() {
     const isFull = available <= 0;
 
     // =========================
-    // BOOK NOW
+    // GET INPUT VALUES (NO STATE CHANGE)
     // =========================
-    const handleBookNow = () => {
-        const currentUser = JSON.parse(
-            localStorage.getItem("user") || "null"
-        );
+    const getCheckIn = () =>
+        document.querySelectorAll(".booking-input")[0]?.value;
+
+    const getCheckOut = () =>
+        document.querySelectorAll(".booking-input")[1]?.value;
+
+    const getNights = (checkIn, checkOut) => {
+        if (!checkIn || !checkOut) return 0;
+
+        const start = new Date(checkIn);
+        const end = new Date(checkOut);
+
+        const diff = end.getTime() - start.getTime();
+        const nights = diff / (1000 * 60 * 60 * 24);
+
+        return nights > 0 ? nights : 0;
+    };
+
+    // =========================
+    // BOOK NOW (FIXED ONLY)
+    // =========================
+    const handleBookNow = async () => {
+        const currentUser = JSON.parse(localStorage.getItem("user") || "null");
+
+        const checkInDate = getCheckIn();
+        const checkOutDate = getCheckOut();
 
         if (!currentUser) {
             alert("Please login first.");
             navigate("/login");
+            return;
+        }
+
+        if (!checkInDate || !checkOutDate) {
+            alert("⚠️ Please select check-in and check-out dates.");
+            return;
+        }
+
+        const nights = getNights(checkInDate, checkOutDate);
+
+        if (nights <= 0) {
+            alert("⚠️ Check-out must be after check-in date.");
             return;
         }
 
@@ -160,29 +188,63 @@ export default function RoomDetails() {
             return;
         }
 
-        if (roomCount > available) {
-            alert(`❌ Only ${available} room(s) available.`);
-            return;
-        }
-
         if (roomCount < 1) {
             alert("❌ Please select at least 1 room.");
             return;
         }
 
-        navigate("/payment", {
-            state: {
-                roomName: room.title,
-                roomPrice: Number(room.price.replace(/[^0-9]/g, "")),
-                roomCount,
-                totalPrice:
-                    Number(room.price.replace(/[^0-9]/g, "")) * roomCount,
-            },
-        });
+        if (roomCount > available) {
+            alert(`❌ Only ${available} room(s) available.`);
+            return;
+        }
+
+        try {
+            const basePrice = Number(room.price.replace(/[^0-9]/g, ""));
+            const totalPrice = basePrice * nights * roomCount;
+
+            const res = await fetch("http://localhost:8080/api/bookings/reserve", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    roomType: roomId.toUpperCase(),
+                    userId: currentUser.id,
+                    roomCount,
+                    checkInDate,
+                    checkOutDate,
+                }),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                alert(data.message || "Reservation failed");
+                return;
+            }
+
+            navigate("/payment", {
+                state: {
+                    bookingId: data.bookingId,
+                    rooms: data.rooms,
+                    roomName: room.title,
+                    roomPrice: basePrice,
+                    roomCount,
+                    nights,
+                    checkInDate,
+                    checkOutDate,
+                    totalPrice,
+                },
+            });
+
+        } catch (err) {
+            console.error(err);
+            alert("Server error while booking");
+        }
     };
 
     // =========================
-    // UI
+    // UI (UNCHANGED)
     // =========================
     return (
         <>
@@ -277,12 +339,7 @@ export default function RoomDetails() {
                                         <button
                                             type="button"
                                             onClick={handleBookNow}
-                                            disabled={isFull}
                                             className="book-btn"
-                                            style={{
-                                                opacity: isFull ? 0.5 : 1,
-                                                cursor: isFull ? "not-allowed" : "pointer",
-                                            }}
                                         >
                                             {isFull ? "Fully Booked" : "Book Now"}
                                         </button>

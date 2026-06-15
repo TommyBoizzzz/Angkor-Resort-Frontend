@@ -1,0 +1,145 @@
+.payment-page {
+  min-height: 100vh;
+  background: #f8f8f6; /* same as room page */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+}
+
+.payment-card {
+  width: 100%;
+  max-width: 600px;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 35px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid #eee;
+}
+
+/* Title */
+.payment-card h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 28px;
+  color: #2b1f16; /* match room title */
+}
+
+/* Summary */
+.summary {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.summary h1 {
+  color: #b68d52; /* hotel gold theme */
+  font-size: 30px;
+}
+
+/* Payment methods */
+.payment-methods {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.method {
+  flex: 1;
+  text-align: center;
+  padding: 15px;
+  border-radius: 12px;
+  background: #f1f1ee;
+  cursor: pointer;
+  transition: 0.3s;
+  border: 1px solid transparent;
+  font-weight: 600;
+  color: #444;
+}
+
+.method:hover {
+  border-color: #b68d52;
+  transform: translateY(-2px);
+}
+
+.method.active {
+  background: #b68d52;
+  color: white;
+  box-shadow: 0 8px 20px rgba(182, 141, 82, 0.25);
+}
+
+/* Inputs */
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.form-group input:focus {
+  border-color: #b68d52;
+  box-shadow: 0 0 0 3px rgba(182, 141, 82, 0.15);
+}
+
+.card-row {
+  display: flex;
+  gap: 15px;
+}
+
+.card-row .form-group {
+  flex: 1;
+}
+
+/* Pay button */
+.pay-btn {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  background: #b68d52; /* match booking button */
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.pay-btn:hover {
+  background: #9c7640;
+  transform: translateY(-2px);
+}
+
+.khqr-box {
+  padding: 30px 20px;
+}
+
+.khqr-box img {
+  margin-bottom: 15px;
+}
+
+.khqr-box p {
+  margin-top: 10px;
+  line-height: 1.6;
+  font-size: 14px;
+  color: gray;
+}
+
+/* Mobile */
+@media (max-width: 500px) {
+  .payment-card {
+    padding: 20px;
+  }
+
+  .card-row {
+    flex-direction: column;
+  }
+
+  .payment-methods {
+    flex-direction: column;
+  }
+}
