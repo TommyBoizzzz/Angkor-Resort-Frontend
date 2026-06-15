@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { SiteHeader } from "../../components/site-header";
 import { SiteFooter } from "../../components/site-footer";
 
-import { getAvailableRooms } from "../../services/roomService";
+import { getAvailableRooms } from "../../services/RoomService";
 import { createBooking } from "../../services/bookingService";
 
 import "./css/roomdetail.css";
