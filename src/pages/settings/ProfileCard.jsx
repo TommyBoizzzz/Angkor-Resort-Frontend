@@ -7,72 +7,94 @@ function ProfileCard({
 }) {
   return (
     <div className="profile-card">
+
+      {/* HEADER */}
       <div className="profile-header">
         <div className="profile-avatar">
-          {user.fullname.charAt(0).toUpperCase()}
+          {(user.username || "?").charAt(0).toUpperCase()}
         </div>
 
-        <h2>{user.fullname}</h2>
+        <h2>{user.username}</h2>
       </div>
 
       <div className="profile-body">
+
+        {/* USERNAME */}
         <div className="info-group">
-          <label>Full Name</label>
+          <label>Username</label>
 
           {editing ? (
             <input
-              type="text"
-              value={user.fullname}
+              value={user.username || ""}
               onChange={(e) =>
-                setUser({
-                  ...user,
-                  fullname: e.target.value,
-                })
+                setUser({ ...user, username: e.target.value })
               }
             />
           ) : (
-            <h4>{user.fullname}</h4>
+            <h4>{user.username || "-"}</h4>
           )}
         </div>
 
+        {/* EMAIL (READ ONLY) */}
         <div className="info-group">
           <label>Email</label>
-          <h4>{user.email}</h4>
+          <h4>{user.email || "-"}</h4>
         </div>
 
+        {/* PHONE */}
         <div className="info-group">
-          <label>Sex</label>
+          <label>Phone Number</label>
 
           {editing ? (
-            <select
-              value={user.sex}
+            <input
+              value={user.phoneNumber || ""}
               onChange={(e) =>
-                setUser({
-                  ...user,
-                  sex: e.target.value,
-                })
+                setUser({ ...user, phoneNumber: e.target.value })
               }
-            >
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
-            </select>
+            />
           ) : (
-            <h4>{user.sex}</h4>
+            <h4>{user.phoneNumber || "-"}</h4>
           )}
         </div>
 
-        <div className="button-group">
+        {/* DOB */}
+        <div className="info-group">
+          <label>Date of Birth</label>
+
           {editing ? (
-            <button onClick={handleSave}>
-              Save Changes
-            </button>
+            <input
+              type="date"
+              value={user.dateOfBirth || ""}
+              onChange={(e) =>
+                setUser({ ...user, dateOfBirth: e.target.value })
+              }
+            />
+          ) : (
+            <h4>{user.dateOfBirth || "-"}</h4>
+          )}
+        </div>
+
+        {/* BUTTONS */}
+        <div className="button-group">
+
+          {editing ? (
+            <>
+              <button onClick={handleSave}>
+                Save Changes
+              </button>
+
+              <button onClick={() => setEditing(false)}>
+                Cancel
+              </button>
+            </>
           ) : (
             <button onClick={() => setEditing(true)}>
               Edit Profile
             </button>
           )}
+
         </div>
+
       </div>
     </div>
   );
