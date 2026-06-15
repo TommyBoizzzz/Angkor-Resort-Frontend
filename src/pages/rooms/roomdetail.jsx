@@ -134,9 +134,10 @@ export default function RoomDetails() {
     }
 
     const isFull = available <= 0;
+    const isButtonDisabled = isFull || available <= 0;
 
     // =========================
-    // GET INPUT VALUES (NO STATE CHANGE)
+    // INPUT HELPERS
     // =========================
     const getCheckIn = () =>
         document.querySelectorAll(".booking-input")[0]?.value;
@@ -157,7 +158,7 @@ export default function RoomDetails() {
     };
 
     // =========================
-    // BOOK NOW (FIXED ONLY)
+    // BOOK NOW
     // =========================
     const handleBookNow = async () => {
         const currentUser = JSON.parse(localStorage.getItem("user") || "null");
@@ -244,7 +245,7 @@ export default function RoomDetails() {
     };
 
     // =========================
-    // UI (UNCHANGED)
+    // UI
     // =========================
     return (
         <>
@@ -279,18 +280,14 @@ export default function RoomDetails() {
                                     </div>
                                 </div>
 
-                                <h1 className="room-title">
-                                    {room.title}
-                                </h1>
+                                <h1 className="room-title">{room.title}</h1>
 
                                 <p className="room-description">
                                     {room.description}
                                 </p>
 
                                 <div className="room-details-section">
-                                    <h3 className="section-title">
-                                        Details
-                                    </h3>
+                                    <h3 className="section-title">Details</h3>
 
                                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                                         <p className="detail-item">{room.guests}</p>
@@ -303,7 +300,6 @@ export default function RoomDetails() {
 
                             {/* RIGHT */}
                             <div>
-
                                 <div className="booking-card">
 
                                     <h2 className="booking-title">
@@ -329,17 +325,25 @@ export default function RoomDetails() {
                                                     setRoomCount(Number(e.target.value))
                                                 }
                                                 className="booking-input"
+                                                disabled={isFull}
                                             />
 
                                             <p style={{ fontSize: "12px", color: "gray" }}>
                                                 Available: {available}
                                             </p>
+
+                                            {isFull && (
+                                                <p style={{ color: "red", fontSize: "12px" }}>
+                                                    ⚠️ This room is fully booked
+                                                </p>
+                                            )}
                                         </div>
 
                                         <button
                                             type="button"
                                             onClick={handleBookNow}
-                                            className="book-btn"
+                                            className={`book-btn ${isButtonDisabled ? "disabled-btn" : ""}`}
+                                            disabled={isButtonDisabled}
                                         >
                                             {isFull ? "Fully Booked" : "Book Now"}
                                         </button>
