@@ -1,6 +1,7 @@
 import axios from "axios";
+import BASE_URL from "../config/global";
 
-const API_URL = "http://localhost:8080/api/users";
+const API_URL = `${BASE_URL}/users`;
 
 const UserService = {
   // GET ALL USERS
