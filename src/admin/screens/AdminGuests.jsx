@@ -60,16 +60,24 @@ function AdminGuests() {
   };
 
   // =========================
-  // EDIT
+  // EDIT USER (FIXED)
   // =========================
   const handleEdit = (user) => {
     setIsEdit(true);
-    setUserData(user);
+    setUserData({
+      id: user.id,
+      username: user.username || "",
+      email: user.email || "",
+      password: "", // do not preload password
+      role: user.role || "GUEST",
+      phoneNumber: user.phoneNumber || "",
+      dateOfBirth: user.dateOfBirth || "",
+    });
     setShowDialog(true);
   };
 
   // =========================
-  // SAVE
+  // SAVE (CREATE / UPDATE)
   // =========================
   const handleSave = async () => {
     if (!userData.username || !userData.email) {
@@ -78,12 +86,16 @@ function AdminGuests() {
     }
 
     try {
-      let result;
-
       if (isEdit) {
-        result = await updateUser(userData.id, userData);
+        await updateUser(userData.id, {
+          username: userData.username,
+          email: userData.email,
+          role: userData.role,
+          phoneNumber: userData.phoneNumber,
+          dateOfBirth: userData.dateOfBirth,
+        });
       } else {
-        result = await createUser(userData);
+        await createUser(userData);
       }
 
       setShowDialog(false);
@@ -114,12 +126,8 @@ function AdminGuests() {
   // =========================
   const filteredUsers = users.filter((u) => {
     const matchSearch =
-      (u.username || "")
-        .toLowerCase()
-        .includes(search.toLowerCase()) ||
-      (u.email || "")
-        .toLowerCase()
-        .includes(search.toLowerCase());
+      (u.username || "").toLowerCase().includes(search.toLowerCase()) ||
+      (u.email || "").toLowerCase().includes(search.toLowerCase());
 
     const matchRole =
       roleFilter === "all" || u.role === roleFilter;
@@ -157,7 +165,7 @@ function AdminGuests() {
         </button>
       </div>
 
-      {/* TABLE (same as rooms style) */}
+      {/* TABLE */}
       <div className="db-table-box">
         <table className="db-table">
           <thead>
@@ -184,8 +192,12 @@ function AdminGuests() {
                   <td>{user.dateOfBirth}</td>
 
                   <td style={actionStyle}>
-                    <button onClick={() => openEdit(user)}>Edit</button>
-                    <button onClick={() => handleDelete(user.id)}>Delete</button>
+                    <button onClick={() => handleEdit(user)}>
+                      Edit
+                    </button>
+                    <button onClick={() => handleDelete(user.id)}>
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))
@@ -200,7 +212,7 @@ function AdminGuests() {
         </table>
       </div>
 
-      {/* MODAL (SAME AS ROOM STYLE) */}
+      {/* MODAL */}
       {showDialog && (
         <div
           className="modal-overlay"
@@ -210,9 +222,7 @@ function AdminGuests() {
             className="modal colorful-modal"
             onClick={(e) => e.stopPropagation()}
           >
-            <h2>
-              {isEdit ? "✏️ Edit User" : "➕ Add User"}
-            </h2>
+            <h2>{isEdit ? "✏️ Edit User" : "➕ Add User"}</h2>
 
             <input
               placeholder="Username"
