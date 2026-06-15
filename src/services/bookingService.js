@@ -3,7 +3,7 @@ import BASE_URL from "../config/global";
 const API_URL = `${BASE_URL}/bookings`;
 
 // =========================
-// CREATE BOOKING (RESERVE ROOM)
+// CREATE BOOKING
 // =========================
 export const createBooking = async (bookingData) => {
     try {
@@ -55,7 +55,7 @@ export const getBookingsByUser = async (userId) => {
 };
 
 // =========================
-// CANCEL BOOKING (optional)
+// CANCEL BOOKING
 // =========================
 export const cancelBooking = async (bookingId) => {
     try {
