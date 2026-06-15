@@ -5,6 +5,7 @@ import { SiteHeader } from "../../components/site-header";
 import { SiteFooter } from "../../components/site-footer";
 
 import { getAvailableRooms } from "../../services/roomService";
+import { createBooking } from "../../services/bookingService";
 
 import "./css/roomdetail.css";
 
@@ -203,26 +204,13 @@ export default function RoomDetails() {
             const basePrice = Number(room.price.replace(/[^0-9]/g, ""));
             const totalPrice = basePrice * nights * roomCount;
 
-            const res = await fetch("http://localhost:8080/api/bookings/reserve", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    roomType: roomId.toUpperCase(),
-                    userId: currentUser.id,
-                    roomCount,
-                    checkInDate,
-                    checkOutDate,
-                }),
+            const data = await createBooking({
+                roomType: roomId.toUpperCase(),
+                userId: currentUser.id,
+                roomCount,
+                checkInDate,
+                checkOutDate,
             });
-
-            const data = await res.json();
-
-            if (!res.ok) {
-                alert(data.message || "Reservation failed");
-                return;
-            }
 
             navigate("/payment", {
                 state: {
@@ -237,10 +225,9 @@ export default function RoomDetails() {
                     totalPrice,
                 },
             });
-
         } catch (err) {
-            console.error(err);
-            alert("Server error while booking");
+            console.error("Booking Error:", err);
+            alert(err.message || "Server error while booking");
         }
     };
 
