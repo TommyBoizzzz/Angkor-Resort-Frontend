@@ -4,7 +4,6 @@ const menus = [
   ["guests", "👤 Guests"],
   ["bookings", "📅 Bookings"],
   ["payments", "💳 Payments"],
-  ["reviews", "⭐ Reviews"],
 ];
 
 function AdminSidebar({

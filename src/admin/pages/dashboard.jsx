@@ -8,7 +8,6 @@ import { AdminRooms } from "../screens/AdminRooms";
 import { AdminGuests } from "../screens/AdminGuests";
 import { AdminBookings } from "../screens/AdminBookings";
 import { AdminPayments } from "../screens/AdminPayments";
-import { AdminReviews } from "../screens/AdminReviews";
 
 function AdminHome() {
   const navigate = useNavigate();
@@ -48,7 +47,6 @@ function AdminHome() {
           {page === "guests" && <AdminGuests />}
           {page === "bookings" && <AdminBookings />}
           {page === "payments" && <AdminPayments />}
-          {page === "reviews" && <AdminReviews />}
         </main>
       </div>
     </div>

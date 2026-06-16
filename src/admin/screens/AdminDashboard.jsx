@@ -44,11 +44,9 @@ function AdminDashboard() {
   // =========================
   const cards = [
     { title: "Total Rooms", value: stats.totalRooms },
-    { title: "Guests", value: stats.guests },
     { title: "Bookings", value: stats.bookings },
     { title: "Revenue", value: `$${stats.revenue.toLocaleString()}` },
     { title: "Available", value: stats.available },
-    { title: "Rating", value: `${stats.rating} ⭐` },
   ];
 
   return (
