@@ -9,6 +9,7 @@ import Dashboard from "./pages/dashboard/dashboard";
 import ProfileSetting from "./pages/settings/profile";
 import RoomDetails from "./pages/rooms/roomdetail";
 import Payment from "./pages/rooms/payment";
+import MyBookings from "./pages/rooms/mybooking";
 
 
 // Admin
@@ -33,6 +34,7 @@ function App() {
         <Route path="/profile" element={<ProfileSetting />} />
         <Route path="/roomdetail/:roomId" element={<RoomDetails />} />
         <Route path="/payment" element={<Payment />} />
+        <Route path="/mybooking" element={<MyBookings />} />
 
         {/* Admin */}
         <Route
