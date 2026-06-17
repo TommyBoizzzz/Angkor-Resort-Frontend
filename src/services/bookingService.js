@@ -59,11 +59,12 @@ export const getBookingsByUser = async (userId) => {
 // =========================
 export const cancelBooking = async (bookingId) => {
     try {
-        const response = await fetch(`${API_URL}/${bookingId}`, {
-            method: "DELETE",
+        const response = await fetch(`${API_URL}/cancel/${bookingId}`, {
+            method: "PUT",
         });
 
-        return response.ok;
+        const data = await response.json();
+        return data.success === true;
     } catch (error) {
         console.error("cancelBooking ERROR:", error);
         return false;

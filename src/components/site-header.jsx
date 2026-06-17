@@ -105,7 +105,7 @@ export function SiteHeader({
                 </Link>
 
                 <Link
-                  to="/my-bookings"
+                  to="/mybooking"
                   className="rounded px-3 py-2 hover:bg-neutral-100"
                 >
                   My Bookings
@@ -207,7 +207,7 @@ export function SiteHeader({
                 </Link>
 
                 <Link
-                  to="/my-bookings"
+                  to="/mybooking"
                   onClick={() => setOpen(false)}
                   className="rounded-md border px-4 py-3"
                 >
